@@ -1,0 +1,78 @@
+[gd_scene format=3 uid="uid://byrc286toswfq"]
+
+[ext_resource type="Script" uid="uid://qbku8a6qaigs" path="res://Scripts/Main.cs" id="1_tvpqx"]
+[ext_resource type="Texture2D" uid="uid://cutl4ecy4v4tt" path="res://Resourses/Background.png" id="2_tvpqx"]
+[ext_resource type="PackedScene" uid="uid://j613pb40l0a1" path="res://elements/main_character.tscn" id="3_nji8p"]
+[ext_resource type="PackedScene" uid="uid://cmtaiomjue4ho" path="res://elements/wall.tscn" id="4_macrm"]
+[ext_resource type="PackedScene" uid="uid://cb0nmruqmvd1w" path="res://elements/enemy.tscn" id="5_6sogb"]
+[ext_resource type="PackedScene" uid="uid://bnvaa46lx0jbw" path="res://elements/wall2.tscn" id="6_macrm"]
+
+[node name="Core" type="Node" unique_id=968773358]
+script = ExtResource("1_tvpqx")
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1967435266]
+texture_filter = 3
+position = Vector2(128, 120)
+texture = ExtResource("2_tvpqx")
+
+[node name="CharacterBody2D" parent="." unique_id=1170352028 instance=ExtResource("3_nji8p")]
+position = Vector2(29, 127)
+
+[node name="Wall" parent="." unique_id=2014719032 instance=ExtResource("4_macrm")]
+
+[node name="Wall2" parent="." unique_id=1551681501 instance=ExtResource("4_macrm")]
+position = Vector2(256, 0)
+
+[node name="Enemy" parent="." unique_id=1197484544 instance=ExtResource("5_6sogb")]
+position = Vector2(210, 27)
+
+[node name="Enemy2" parent="." unique_id=2110667426 instance=ExtResource("5_6sogb")]
+position = Vector2(213, 200)
+
+[node name="Enemy3" parent="." unique_id=1638208232 instance=ExtResource("5_6sogb")]
+position = Vector2(210, 115)
+
+[node name="Enemy4" parent="." unique_id=1079069080 instance=ExtResource("5_6sogb")]
+position = Vector2(127, 113)
+
+[node name="Enemy5" parent="." unique_id=559492691 instance=ExtResource("5_6sogb")]
+position = Vector2(47, 30)
+
+[node name="Enemy6" parent="." unique_id=1220689013 instance=ExtResource("5_6sogb")]
+position = Vector2(44, 195)
+
+[node name="Wall_small" parent="." unique_id=956600212 instance=ExtResource("6_macrm")]
+position = Vector2(49, 4)
+
+[node name="Wall_small2" parent="." unique_id=650460421 instance=ExtResource("6_macrm")]
+position = Vector2(215, 4)
+
+[node name="Wall_small3" parent="." unique_id=1858046538 instance=ExtResource("6_macrm")]
+position = Vector2(217, 237)
+
+[node name="Wall_small4" parent="." unique_id=285203298 instance=ExtResource("6_macrm")]
+position = Vector2(49, 237)
+
+[node name="Wall_small5" parent="." unique_id=361928518 instance=ExtResource("6_macrm")]
+position = Vector2(84.99999, 218)
+rotation = 1.5777776
+
+[node name="Wall_small6" parent="." unique_id=1400092874 instance=ExtResource("6_macrm")]
+position = Vector2(171, 219.00002)
+rotation = 1.5777776
+
+[node name="Wall_small7" parent="." unique_id=1387888070 instance=ExtResource("6_macrm")]
+position = Vector2(172.99998, 21)
+rotation = 1.5777776
+
+[node name="Wall_small8" parent="." unique_id=377996652 instance=ExtResource("6_macrm")]
+position = Vector2(86, 21)
+rotation = 1.5777776
+
+[node name="Wall_small9" parent="." unique_id=431088241 instance=ExtResource("6_macrm")]
+position = Vector2(132, 57.999996)
+rotation = 0.006981317
+
+[node name="Wall_small10" parent="." unique_id=69779211 instance=ExtResource("6_macrm")]
+position = Vector2(130.99998, 181)
+rotation = 0.006981317

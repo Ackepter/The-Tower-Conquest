@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://cb0nmruqmvd1w"]
+
+[ext_resource type="Texture2D" uid="uid://bxvgqcoqfvx2e" path="res://Resourses/enemy/enemy1_1.png" id="1_btx3p"]
+[ext_resource type="Script" uid="uid://cxqd3gq8k0wbq" path="res://Scripts/Enemy.cs" id="1_uxutw"]
+[ext_resource type="Texture2D" uid="uid://ds1hsn4u6cb6l" path="res://Resourses/enemy/enemy1_2.png" id="2_uxutw"]
+[ext_resource type="Script" uid="uid://cqv4hum7no3yi" path="res://Scripts/EnemyHealthBar.cs" id="4_88sqy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_88sqy"]
+atlas = ExtResource("1_btx3p")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wgbob"]
+atlas = ExtResource("2_uxutw")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p6vme"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_88sqy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wgbob")
+}],
+"loop": true,
+"name": &"default",
+"speed": 0.5
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rectw"]
+radius = 7.0
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1197484544]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_uxutw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=340090914]
+texture_filter = 3
+texture_repeat = 2
+sprite_frames = SubResource("SpriteFrames_p6vme")
+autoplay = "default"
+frame_progress = 0.043367032
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=928869919]
+position = Vector2(0, 2)
+shape = SubResource("CapsuleShape2D_rectw")
+
+[node name="Control" type="Control" parent="." unique_id=804671896]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="EnemyProgressBar" type="ProgressBar" parent="Control" unique_id=1800110046]
+layout_mode = 0
+offset_left = -10.0
+offset_top = -18.0
+offset_right = 8.0
+offset_bottom = -14.0
+value = 100.0
+show_percentage = false
+script = ExtResource("4_88sqy")
