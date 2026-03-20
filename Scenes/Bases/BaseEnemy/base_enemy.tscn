@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://dx707qpk8l4f2"]
+
+[ext_resource type="Script" uid="uid://cip1bytyd1wmr" path="res://Scenes/Bases/BaseEnemy/BaseEnemyScript.cs" id="1_rsgsp"]
+[ext_resource type="Script" uid="uid://b08gh233wqcnt" path="res://Scenes/Bases/BaseEnemy/ProgressBarScript.cs" id="2_018v7"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rsgsp"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eghuk"]
+animations = [{
+"frames": [],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"walk",
+"speed": 5.0
+}]
+
+[node name="BaseEnemy" type="CharacterBody2D" unique_id=1419053090]
+collision_mask = 6
+script = ExtResource("1_rsgsp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1306090086]
+shape = SubResource("CapsuleShape2D_rsgsp")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="." unique_id=1131688894]
+sprite_frames = SubResource("SpriteFrames_eghuk")
+animation = &"hurt"
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=3285190]
+navigation_layers = 3
+
+[node name="VisionRay" type="RayCast2D" parent="." unique_id=1618457141]
+collision_mask = 0
+
+[node name="Control" type="Control" parent="." unique_id=1012546459]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=1559832950]
+layout_mode = 0
+offset_left = -8.0
+offset_top = -32.0
+offset_right = 8.0
+offset_bottom = -16.0
+value = 100.0
+show_percentage = false
+script = ExtResource("2_018v7")

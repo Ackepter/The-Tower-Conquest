@@ -1,30 +1,28 @@
 using Godot;
 using System;
 
-public partial class EnemyHealthBar : ProgressBar
+public partial class HpBarScripts : ProgressBar
 {
-	private Enemy _enemy;
+    private MainCharacter _hero;
 	private new StyleBoxFlat sbFill;
 	private new StyleBoxFlat sbBackground; 
 	
 	public override void _Ready() {
-		_enemy = GetParent<Control>().GetParent<Enemy>();
+		_hero = GetParent<Camera2D>().GetParent<MainCharacter>();
 		HealthBarTheme();
-		ShowPercentage = false;
-		Size = new Vector2(20, 2);
+		Size = new Vector2(60, 2);
 		
 		SizeFlagsHorizontal = 0;
 		SizeFlagsVertical = 0;
 		
-		if (_enemy != null) {
-			_enemy.hp = 100;
-			Value = _enemy.GetHp();
+		if (_hero != null) {
+			Value = _hero.CurrentHp;
 		}
 	}
 	
 	public override void _Process(double delta) {
-		if (_enemy != null) {
-			Value = _enemy.GetHp();
+		if (_hero != null) {
+			Value = _hero.CurrentHp;
 		}
 	}
 	

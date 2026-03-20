@@ -1,0 +1,148 @@
+[gd_scene format=3 uid="uid://j613pb40l0a1"]
+
+[ext_resource type="Script" uid="uid://bnrtvfdb8g7uc" path="res://Scenes/Entityes/Main Hero/MainCharacter.cs" id="1_7rls4"]
+[ext_resource type="Texture2D" uid="uid://1lrhpi7ni7tl" path="res://Scenes/Entityes/Main Hero/animations/hurt.png" id="2_a676m"]
+[ext_resource type="Texture2D" uid="uid://c8qb8r578tma0" path="res://Scenes/Entityes/Main Hero/animations/idle.png" id="3_8wtfx"]
+[ext_resource type="Texture2D" uid="uid://cmy2oi3uhcsty" path="res://Scenes/Entityes/Main Hero/animations/walk.png" id="4_3lbuj"]
+[ext_resource type="Texture2D" uid="uid://bvai00c5afmqo" path="res://Resourses/swords/woodenSword.png" id="5_8wtfx"]
+[ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="6_3lbuj"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pb7b2"]
+radius = 7.0
+height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obwbd"]
+radius = 8.5440035
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75cit"]
+atlas = ExtResource("2_a676m")
+region = Rect2(0, 0, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vvdt1"]
+atlas = ExtResource("2_a676m")
+region = Rect2(14, 0, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pb3wk"]
+atlas = ExtResource("2_a676m")
+region = Rect2(28, 0, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5rj8r"]
+atlas = ExtResource("3_8wtfx")
+region = Rect2(0, 0, 10, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qn2p4"]
+atlas = ExtResource("3_8wtfx")
+region = Rect2(10, 0, 10, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ewe2d"]
+atlas = ExtResource("3_8wtfx")
+region = Rect2(20, 0, 10, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bob6n"]
+atlas = ExtResource("4_3lbuj")
+region = Rect2(0, 0, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u16in"]
+atlas = ExtResource("4_3lbuj")
+region = Rect2(14, 0, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgeqe"]
+atlas = ExtResource("4_3lbuj")
+region = Rect2(28, 0, 14, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5b2if"]
+atlas = ExtResource("4_3lbuj")
+region = Rect2(42, 0, 14, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_atqor"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75cit")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vvdt1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pb3wk")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5rj8r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qn2p4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ewe2d")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bob6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u16in")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgeqe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5b2if")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 3.0
+}]
+
+[node name="MainCharacter" type="CharacterBody2D" unique_id=1170352028]
+collision_mask = 6
+script = ExtResource("1_7rls4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1331662378]
+shape = SubResource("CapsuleShape2D_pb7b2")
+
+[node name="AttackHitbox" type="Area2D" parent="." unique_id=191780730]
+collision_layer = 2
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=651143498]
+shape = SubResource("CircleShape2D_obwbd")
+disabled = true
+
+[node name="Player" type="AnimatedSprite2D" parent="." unique_id=1694059112]
+sprite_frames = SubResource("SpriteFrames_atqor")
+animation = &"hurt"
+frame_progress = 0.606389
+
+[node name="SwordRight" type="Sprite2D" parent="." unique_id=955221411]
+visible = false
+position = Vector2(8, 0)
+rotation = 0.85013014
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_8wtfx")
+
+[node name="SwordLeft" type="Sprite2D" parent="." unique_id=604354025]
+visible = false
+position = Vector2(-8, 0)
+rotation = -0.84997535
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("5_8wtfx")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=2025310438]
+
+[node name="HpBar" type="ProgressBar" parent="Camera2D" unique_id=614450530]
+offset_left = -128.0
+offset_top = -120.0
+offset_right = -64.0
+offset_bottom = -93.0
+script = ExtResource("6_3lbuj")
+
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hit_box_body_entered"]

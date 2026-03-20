@@ -1,34 +1,27 @@
 using Godot;
-using System;
 
-public partial class EnemyHealthBar : ProgressBar
-{
-	private Enemy _enemy;
-	private new StyleBoxFlat sbFill;
-	private new StyleBoxFlat sbBackground; 
-	
-	public override void _Ready() {
-		_enemy = GetParent<Control>().GetParent<Enemy>();
+public partial class ProgressBarScript : Godot.ProgressBar
+{ 
+	//enemy короче в дочернем классе будет ок
+	protected StyleBoxFlat sbFill{get;set;}
+	protected StyleBoxFlat sbBackground{get;set;}
+ 
+    public override void _Ready()
+	{
+		GD.Print("ProgressBar: Ready parent");
 		HealthBarTheme();
 		ShowPercentage = false;
 		Size = new Vector2(20, 2);
 		
 		SizeFlagsHorizontal = 0;
 		SizeFlagsVertical = 0;
-		
-		if (_enemy != null) {
-			_enemy.hp = 100;
-			Value = _enemy.GetHp();
-		}
 	}
-	
-	public override void _Process(double delta) {
-		if (_enemy != null) {
-			Value = _enemy.GetHp();
-		}
+
+    public override void _Process(double delta) {
+
 	}
-	
-	private new void HealthBarTheme() {
+
+    protected void HealthBarTheme() {
 		sbFill = new StyleBoxFlat();
 		sbBackground = new StyleBoxFlat();
 		
