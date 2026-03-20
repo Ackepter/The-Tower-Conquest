@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://c3h7iijqe5csx" path="res://Scenes/Entityes/Poor Human/animations/idle.png" id="3_cxc1j"]
 [ext_resource type="Texture2D" uid="uid://br6uy5h0t0626" path="res://Scenes/Entityes/Poor Human/animations/walk.png" id="4_vvnho"]
 [ext_resource type="Script" uid="uid://5c6umrgksp5u" path="res://Scenes/Entityes/Poor Human/ProgressBarPoorHuman.cs" id="6_847p0"]
+[ext_resource type="Texture2D" uid="uid://bvai00c5afmqo" path="res://Resourses/swords/woodenSword.png" id="7_847p0"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_erhga"]
 radius = 8.0
@@ -99,6 +100,9 @@ animations = [{
 "speed": 4.0
 }]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_vvnho"]
+radius = 8.5440035
+
 [node name="PoorHuman" unique_id=1419053090 instance=ExtResource("1_erhga")]
 collision_layer = 4
 collision_mask = 3
@@ -122,3 +126,26 @@ offset_top = -16.0
 offset_right = 0.0
 offset_bottom = -8.0
 script = ExtResource("6_847p0")
+
+[node name="AttackHitbox" type="Area2D" parent="." index="5" unique_id=826893474]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" index="0" unique_id=1734391466]
+shape = SubResource("CircleShape2D_vvnho")
+disabled = true
+
+[node name="SwordRight" type="Sprite2D" parent="." index="6" unique_id=300012136]
+visible = false
+position = Vector2(8, 0)
+rotation = 0.85013014
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_847p0")
+
+[node name="SwordLeft" type="Sprite2D" parent="." index="7" unique_id=721274475]
+visible = false
+position = Vector2(-8, 0)
+rotation = -0.84997535
+scale = Vector2(0.7, 0.7)
+texture = ExtResource("7_847p0")
+
+[connection signal="body_entered" from="AttackHitbox" to="." method="OnBodyEntered"]

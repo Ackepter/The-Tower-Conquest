@@ -16,13 +16,13 @@ public partial class HpBarScripts : ProgressBar
 		SizeFlagsVertical = 0;
 		
 		if (_hero != null) {
-			Value = _hero.CurrentHp;
+			Value = _hero.GetCurrentHp;
 		}
 	}
 	
 	public override void _Process(double delta) {
 		if (_hero != null) {
-			Value = _hero.CurrentHp;
+			Value = _hero.GetCurrentHp;
 		}
 	}
 	

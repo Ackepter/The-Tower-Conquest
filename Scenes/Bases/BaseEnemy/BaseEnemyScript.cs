@@ -7,6 +7,7 @@ public partial class BaseEnemyScript : CharacterBody2D
     public virtual float Speed => 7f;
 
     protected virtual float AttackCooldown => 1.5f;
+
     protected virtual int RecognizeDistance => 200;
     protected virtual int MaxHp => 100;
 
@@ -18,7 +19,6 @@ public partial class BaseEnemyScript : CharacterBody2D
     // Узлы
     protected CharacterBody2D _hero;
     protected AnimatedSprite2D _sprite;
-    protected Timer _attackTimer;
     protected RayCast2D _visionRay;
     protected NavigationAgent2D _agent;
 
@@ -31,12 +31,6 @@ public partial class BaseEnemyScript : CharacterBody2D
         _visionRay = GetNode<RayCast2D>("VisionRay");
         _agent = GetNode<NavigationAgent2D>("NavigationAgent2D");
         _hero = GetNode<CharacterBody2D>("../FirstMap/MainCharacter");
-
-        _attackTimer = new Timer();
-        _attackTimer.OneShot = true;
-        _attackTimer.WaitTime = AttackCooldown;
-        _attackTimer.Timeout += OnAttackCooldownEnd;
-        AddChild(_attackTimer);
 
         _currentHp = MaxHp;
         
@@ -73,7 +67,7 @@ public partial class BaseEnemyScript : CharacterBody2D
         else if (!_isAttacking)
             _sprite.Play("idle");
             
-        FlipSprite();
+        FlipSprite(Velocity);
     }
 
     protected bool HasLineOfSight()
@@ -94,26 +88,31 @@ public partial class BaseEnemyScript : CharacterBody2D
 
     protected virtual void Attack()
     {
-        _isAttacking = true;
-        _canAttack = false;
-        _attackTimer.Start();
          
     }
 
-    private void OnAttackCooldownEnd()
-    {
-        _canAttack = true;
-        _isAttacking = false;
-    }
 
-    protected void FlipSprite()
-    {
-        if (_sprite == null || _hero == null) return;
-        if (_hero.GlobalPosition.X < GlobalPosition.X)
-            _sprite.FlipH = true;
-        else
-            _sprite.FlipH = false;
-    }
+    protected virtual void FlipSprite(Vector2 velocity)
+	{
+		bool shouldFaceLeft = velocity.X < 0;
+	
+		// Если хотим влево И уже смотрим влево (FlipH = true) -> выходим
+		if (shouldFaceLeft && _sprite.FlipH) return;
+		
+		// Если хотим вправо И уже смотрим вправо (FlipH = false) -> выходим
+		if (!shouldFaceLeft && !_sprite.FlipH) return;
+		
+		// Сбрасываем анимацию меча перед поворотом
+		
+		if (shouldFaceLeft)
+		{
+			_sprite.FlipH = true;
+		}
+		else
+		{
+			_sprite.FlipH = false;
+		}
+	}
 
     public virtual void TakeDamage(int value)
     {

@@ -5,7 +5,9 @@ public partial class MainCharacter : CharacterBody2D
 {
 	public const float Speed = 100f; 
 	private const int _maxHp = 100;
-	public int CurrentHp{get;} = _maxHp;
+
+	private int _currentHp = _maxHp;
+	public int GetCurrentHp => _currentHp;
 	private AnimatedSprite2D _animatedSprite;
 	private AnimationPlayer _animatedPlayer;
 	private bool _isAttacking = false;
@@ -258,5 +260,14 @@ public partial class MainCharacter : CharacterBody2D
 		_currentSword.Position = _swordBasePosition;
 
 		_attackHitboxCollison.Disabled = true;
+	}
+
+	public void GetDamage(int value)
+	{
+		if(_currentHp - value >= 0)
+		{
+			_currentHp -= value;
+		}
+		else _currentHp = 0;
 	}
 }
