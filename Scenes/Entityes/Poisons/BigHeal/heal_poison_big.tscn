@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://deb72j7w4uk4r"]
+
+[ext_resource type="PackedScene" uid="uid://cmy2hvmqwtex4" path="res://Scenes/Bases/BaseHeal/heal_poison_base.tscn" id="1_m5kfa"]
+[ext_resource type="Texture2D" uid="uid://be6uua1ed3nhs" path="res://Scenes/Entityes/Poisons/BigHeal/bigPoison.png" id="2_0qoic"]
+[ext_resource type="Script" uid="uid://d3tooff4ofpjd" path="res://Scenes/Entityes/Poisons/BigHeal/HealPoisonBig.cs" id="3_bka8p"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_m5kfa"]
+points = PackedVector2Array(-5, -6, 5, -6, 5, 6, -5, 6)
+
+[node name="HealPoisonBig" unique_id=1241941863 instance=ExtResource("1_m5kfa")]
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("2_0qoic")
+script = ExtResource("3_bka8p")
+
+[node name="CollisionShape2D" parent="Area2D" parent_id_path=PackedInt32Array(905457732) index="0" unique_id=1487162716]
+shape = SubResource("ConvexPolygonShape2D_m5kfa")

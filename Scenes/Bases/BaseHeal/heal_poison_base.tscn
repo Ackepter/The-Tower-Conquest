@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cmy2hvmqwtex4"]
+
+[ext_resource type="Script" uid="uid://cu4mjp7qa14ip" path="res://Scenes/Bases/BaseHeal/HealPoisonBase.cs" id="1_lsbn8"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_lqqp5"]
+
+[node name="HealPoisonBase" type="Sprite2D" unique_id=1241941863]
+script = ExtResource("1_lsbn8")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=905457732]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1487162716]
+shape = SubResource("ConvexPolygonShape2D_lqqp5")
+
+[connection signal="body_entered" from="Area2D" to="." method="OnBodyEntered"]

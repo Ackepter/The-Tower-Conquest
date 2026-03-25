@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cyoh6yc173dov" path="res://Resourses/backs/black.png" id="1_qw60k"]
 [ext_resource type="PackedScene" uid="uid://j613pb40l0a1" path="res://Scenes/Entityes/Main Hero/main_character.tscn" id="2_lixft"]
 [ext_resource type="PackedScene" uid="uid://bqn0sm6lfgesx" path="res://Scenes/Entityes/Poor Human/poor_human.tscn" id="5_p6jpk"]
+[ext_resource type="PackedScene" uid="uid://deb72j7w4uk4r" path="res://Scenes/Entityes/Poisons/BigHeal/heal_poison_big.tscn" id="6_2a143"]
+[ext_resource type="PackedScene" uid="uid://cnbrcbjsax6xt" path="res://Scenes/Entityes/Poisons/SmallHeal/heal_poison_small.tscn" id="7_xlvfx"]
 
 [node name="Main" type="Node2D" unique_id=2107342026]
 script = ExtResource("1_5yls4")
@@ -20,4 +22,10 @@ position = Vector2(144, 40)
 [node name="MainCharacter" parent="FirstMap" unique_id=1170352028 instance=ExtResource("2_lixft")]
 position = Vector2(-216, -208)
 
+[node name="HealPoisonBig" parent="FirstMap" unique_id=1241941863 instance=ExtResource("6_2a143")]
+position = Vector2(-232, 0)
+
+[node name="HealPoisonSmall" parent="FirstMap" unique_id=205890444 instance=ExtResource("7_xlvfx")]
+
 [node name="PoorHuman" parent="." unique_id=1419053090 instance=ExtResource("5_p6jpk")]
+position = Vector2(0, -16)

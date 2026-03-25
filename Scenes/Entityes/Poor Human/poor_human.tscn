@@ -105,7 +105,7 @@ radius = 8.5440035
 
 [node name="PoorHuman" unique_id=1419053090 instance=ExtResource("1_erhga")]
 collision_layer = 4
-collision_mask = 3
+collision_mask = 23
 script = ExtResource("2_vvnho")
 
 [node name="CollisionShape2D" parent="." index="0" unique_id=1306090086]

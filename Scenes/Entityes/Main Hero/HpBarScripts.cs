@@ -4,8 +4,8 @@ using System;
 public partial class HpBarScripts : ProgressBar
 {
     private MainCharacter _hero;
-	private new StyleBoxFlat sbFill;
-	private new StyleBoxFlat sbBackground; 
+	private StyleBoxFlat sbFill;
+	private StyleBoxFlat sbBackground; 
 	
 	public override void _Ready() {
 		_hero = GetParent<Camera2D>().GetParent<MainCharacter>();
@@ -26,7 +26,7 @@ public partial class HpBarScripts : ProgressBar
 		}
 	}
 	
-	private new void HealthBarTheme() {
+	private void HealthBarTheme() {
 		sbFill = new StyleBoxFlat();
 		sbBackground = new StyleBoxFlat();
 		

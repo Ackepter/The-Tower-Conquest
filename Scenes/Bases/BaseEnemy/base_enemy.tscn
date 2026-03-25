@@ -24,7 +24,7 @@ animations = [{
 }]
 
 [node name="BaseEnemy" type="CharacterBody2D" unique_id=1419053090]
-collision_mask = 6
+collision_mask = 22
 script = ExtResource("1_rsgsp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1306090086]

@@ -1,3 +1,4 @@
+using System;
 using Godot;
  
 public partial class PoorHuman : BaseEnemyScript
@@ -34,7 +35,6 @@ public partial class PoorHuman : BaseEnemyScript
 
     public override void _Ready()
     {
-        GD.Print("ready child");
         _attackHitbox = GetNode<Area2D>("AttackHitbox");
 		_attackHitboxCollison = GetNode<CollisionShape2D>("AttackHitbox/CollisionShape2D");
         _swords[0]= GetNode<Sprite2D>("SwordLeft");
@@ -58,10 +58,12 @@ public partial class PoorHuman : BaseEnemyScript
     {
         base._PhysicsProcess(delta);
 
-         if (_cooldownAttack > 0)
-			    _cooldownAttack -= (float)delta;
+        if (_cooldownAttack > 0)
+			_cooldownAttack -= (float)delta;
 
-        if (distance < RecognizeDistance && HasLineOfSight())
+		if (!_isAttacking)
+		{
+			if (distance < RecognizeDistance && HasLineOfSight())
         {
             if (distance > 20)
             {
@@ -77,7 +79,8 @@ public partial class PoorHuman : BaseEnemyScript
             Velocity = Velocity.MoveToward(Vector2.Zero, Speed * (float)delta);
             MoveAndSlide();
         }
-        UpdateAnimation();
+        	UpdateAnimation();
+		}
     }
 
     public async void PerformAttack() 
@@ -92,6 +95,18 @@ public partial class PoorHuman : BaseEnemyScript
 		else if(_currentSword == _swords[1])
 		{
 			_attackHitbox.Position = new Vector2(16,0);
+		}
+
+		Vector2 directionToHero = (_hero.GlobalPosition - GlobalPosition);
+		if(Math.Abs(directionToHero.X) < Math.Abs(directionToHero.Y))
+		{
+			if(directionToHero.Y > 0)
+			{
+				_attackHitbox.Position = new Vector2(0,16);
+			}
+			else if(directionToHero.Y < 0){
+				_attackHitbox.Position = new Vector2(0,-16);
+			}
 		}
 
 		// Останавливаем предыдущую анимацию
@@ -182,7 +197,6 @@ public partial class PoorHuman : BaseEnemyScript
 			
 			if (hero != null) {
                 hero.GetDamage(10);
-				GD.Print(hero.GetCurrentHp);
 			}
 			else
 			{

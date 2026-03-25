@@ -4,8 +4,8 @@ using System;
 public partial class EnemyHealthBar : ProgressBar
 {
 	private Enemy _enemy;
-	private new StyleBoxFlat sbFill;
-	private new StyleBoxFlat sbBackground; 
+	private StyleBoxFlat sbFill;
+	private StyleBoxFlat sbBackground; 
 	
 	public override void _Ready() {
 		_enemy = GetParent<Control>().GetParent<Enemy>();
@@ -28,7 +28,7 @@ public partial class EnemyHealthBar : ProgressBar
 		}
 	}
 	
-	private new void HealthBarTheme() {
+	private void HealthBarTheme() {
 		sbFill = new StyleBoxFlat();
 		sbBackground = new StyleBoxFlat();
 		

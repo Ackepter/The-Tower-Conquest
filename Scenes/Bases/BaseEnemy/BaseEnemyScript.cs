@@ -24,7 +24,6 @@ public partial class BaseEnemyScript : CharacterBody2D
 
     public override void _Ready()
     {
-        GD.Print("ready parent");
         AddToGroup("enemy");
         
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite");
@@ -129,7 +128,6 @@ public partial class BaseEnemyScript : CharacterBody2D
 
     public virtual void Die()
     {
-        GD.Print($"{Name} died");
         QueueFree();
     }
 }

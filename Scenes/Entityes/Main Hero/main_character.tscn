@@ -7,13 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://bvai00c5afmqo" path="res://Resourses/swords/woodenSword.png" id="5_8wtfx"]
 [ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="6_3lbuj"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pb7b2"]
-radius = 7.0
-height = 16.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_obwbd"]
-radius = 8.5440035
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_75cit"]
 atlas = ExtResource("2_a676m")
 region = Rect2(0, 0, 14, 20)
@@ -103,19 +96,8 @@ animations = [{
 }]
 
 [node name="MainCharacter" type="CharacterBody2D" unique_id=1170352028]
-collision_mask = 6
+collision_mask = 30
 script = ExtResource("1_7rls4")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1331662378]
-shape = SubResource("CapsuleShape2D_pb7b2")
-
-[node name="AttackHitbox" type="Area2D" parent="." unique_id=191780730]
-collision_layer = 2
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackHitbox" unique_id=651143498]
-shape = SubResource("CircleShape2D_obwbd")
-disabled = true
 
 [node name="Player" type="AnimatedSprite2D" parent="." unique_id=1694059112]
 sprite_frames = SubResource("SpriteFrames_atqor")
@@ -145,4 +127,5 @@ offset_right = -64.0
 offset_bottom = -93.0
 script = ExtResource("6_3lbuj")
 
-[connection signal="body_entered" from="AttackHitbox" to="." method="_on_attack_hit_box_body_entered"]
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=701499585]
+polygon = PackedVector2Array(-5, -8, 5, -8, 5, 8, -5, 8)

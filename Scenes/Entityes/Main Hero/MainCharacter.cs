@@ -8,18 +8,18 @@ public partial class MainCharacter : CharacterBody2D
 
 	private int _currentHp = _maxHp;
 	public int GetCurrentHp => _currentHp;
+	public int GetMaxHp => _maxHp;
 	private AnimatedSprite2D _animatedSprite;
 	private AnimationPlayer _animatedPlayer;
 	private bool _isAttacking = false;
-	private Area2D _attackHitbox;
-	private CollisionShape2D _attackHitboxCollison;
 	private float cooldownAttack = 0f;
 	private const float attackCooldownTime = 0.5f;
 	private CharacterBody2D enemy;
 	private Sprite2D[] _swords = new Sprite2D[2];
 	private Sprite2D _currentSword;
 	private Tween _swordTween;
-
+	public Node2D CurrentEnemy { get; set; }
+	
 	// Параметры анимации меча (в радианах и пикселях)
 	private const float WindUpAngle = -0.5f;      // Занесение назад (против часовой)
 	private const float SlashAngle = 1.2f;        // Удар вперёд
@@ -41,30 +41,67 @@ public partial class MainCharacter : CharacterBody2D
 	public override void _Ready() 
 	{
 		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
-		_attackHitbox = GetNode<Area2D>("AttackHitbox");
-		_attackHitboxCollison = GetNode<CollisionShape2D>("AttackHitbox/CollisionShape2D");
 		_swords[0]= GetNode<Sprite2D>("SwordLeft");
 		_swords[1]= GetNode<Sprite2D>("SwordRight");
 		_currentSword = _swords[1];
 		_currentSword.Show();
 		_swordBasePosition = _currentSword.Position;
 		_swordBaseRotation = _currentSword.Rotation;
-
-		_attackHitbox.BodyEntered += OnBodyEntered;
 	}
 	
 	public override void _PhysicsProcess(double delta)
 	{
 		if (cooldownAttack > 0)
 			cooldownAttack -= (float)delta;
-		
-		HandleMovement();
 
-		HandleAttack();
+		if (!_isAttacking)
+		{
+			
+			HandleMovement();
+
+			HandleAttack();
 		
-		MoveAndSlide();
+			MoveAndSlide();
+		}
+		
 	}
 	
+	public override void _Input(InputEvent @event)
+    {
+        if (@event is InputEventMouseButton mouseButton && 
+            mouseButton.Pressed && 
+            mouseButton.ButtonIndex == MouseButton.Left)
+        {
+            SelectEnemyAtMousePosition();
+        }
+    }
+	private void SelectEnemyAtMousePosition()
+    {
+        Vector2 mousePos = GetGlobalMousePosition();
+
+        var spaceState = GetWorld2D().DirectSpaceState;
+        var query = new PhysicsPointQueryParameters2D();
+        query.Position = mousePos;
+        var results = spaceState.IntersectPoint(query);
+
+        if (results.Count > 0)
+        {
+            var collider = (Node2D)results[0]["collider"];
+
+            if (collider.IsInGroup("enemy"))
+            {
+                CurrentEnemy = collider;
+            }
+            else
+            {
+                CurrentEnemy = null;
+            }
+        }
+        else
+        {
+            CurrentEnemy = null;
+        }
+    }
 	public void HandleMovement() {
 		float inputX = Input.GetAxis("Left", "Right");
 		float inputY = Input.GetAxis("Up", "Down");
@@ -95,7 +132,7 @@ public partial class MainCharacter : CharacterBody2D
 	}
 	
 	public void HandleAttack() {
-		if (Input.IsActionJustPressed("Attack") && !_isAttacking)
+		if (Input.IsActionJustPressed("Attack") && !_isAttacking && CurrentEnemy is not null && GlobalPosition.DistanceTo(CurrentEnemy.GlobalPosition) < 45) 
 		{
 			PerformAttack();
 		}
@@ -105,15 +142,6 @@ public partial class MainCharacter : CharacterBody2D
 	{
 		_isAttacking = true;
 		_cooldownAttack = _attackCooldownTime + WindUpTime + SlashTime + ReturnTime;
-
-		if (_currentSword == _swords[0])
-		{
-			_attackHitbox.Position = new Vector2(-16,0);
-		}
-		else if(_currentSword == _swords[1])
-		{
-			_attackHitbox.Position = new Vector2(16,0);
-		}
 
 		// Останавливаем предыдущую анимацию
 		if (_swordTween != null && _swordTween.IsRunning())
@@ -153,9 +181,6 @@ public partial class MainCharacter : CharacterBody2D
 		//УДАР
 
 		//активирую атаку
-		_attackHitboxCollison.Disabled = false;
-
-		_attackHitbox.Monitoring = true;
 	
 		_swordTween = CreateTween();
 		_swordTween.SetParallel();
@@ -172,8 +197,15 @@ public partial class MainCharacter : CharacterBody2D
 			.SetEase(Tween.EaseType.In);
 	
 		await ToSignal(_swordTween, "finished");
-	
-		_attackHitbox.Monitoring = false;
+
+		BaseEnemyScript enemy = CurrentEnemy as BaseEnemyScript;
+		if (enemy != null) {
+			enemy.TakeDamage(50);
+		}
+		else
+		{
+			GD.Print("Enemy is not finded");
+		}
 	
 		//ВОЗВРАТ
 	
@@ -193,24 +225,9 @@ public partial class MainCharacter : CharacterBody2D
 	
 		await ToSignal(_swordTween, "finished");
 
-		_attackHitboxCollison.Disabled = true;
 		_isAttacking = false;
 }
 	
-	public void OnBodyEntered(Node2D body) {		
-		if (body.IsInGroup("enemy") && _isAttacking) {
-			BaseEnemyScript enemy = body as BaseEnemyScript;
-			
-			if (enemy != null) {
-				enemy.TakeDamage(50);
-				GD.Print(enemy.GetCurrentHp());
-			}
-			else
-			{
-				GD.Print("Enemy is not finded");
-			}
-		}
-	}
 	private void FlipSprite(Vector2 velocity)
 	{
 		bool shouldFaceLeft = velocity.X < 0;
@@ -259,15 +276,26 @@ public partial class MainCharacter : CharacterBody2D
 		_currentSword.Rotation = _swordBaseRotation;
 		_currentSword.Position = _swordBasePosition;
 
-		_attackHitboxCollison.Disabled = true;
 	}
 
 	public void GetDamage(int value)
 	{
+		if(value < 0) value *= -1;
+		
 		if(_currentHp - value >= 0)
 		{
 			_currentHp -= value;
 		}
 		else _currentHp = 0;
+	}
+	public void GetHeal(int value)
+	{
+		if(value < 0) value *= -1;
+
+		if(_currentHp + value <= 100)
+		{
+			_currentHp += value;
+		}
+		else _currentHp = 100;
 	}
 }
