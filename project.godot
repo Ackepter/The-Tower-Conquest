@@ -10,11 +10,12 @@ config_version=5
 
 [application]
 
-config/name="firstGame"
-run/main_scene="res://Scenes/Main/main.tscn"
-config/features=PackedStringArray("4.6", "C#", "Forward Plus")
+config/name="map_level1"
+run/main_scene="uid://dwggga6wfjhb"
+config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 <<<<<<<HEADconfig/name="firstGame"
+<<<<<<<HEAD<<<<<<<HEADconfig/name="firstGame"
 
 [autoload]
 
