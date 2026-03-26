@@ -1,4 +1,5 @@
 using Godot;
+using System;
 
 //ВАЖНЫЙ НЮАНС КОГДА БУДЕТЕ СОЗДАВАТЬ ОТ ЭТОГО КЛАССА НАСЛЕДНИКОВ ДЛЯ БУДУЮЩИХ ВРАГОВ, ТО ИХ ПРИКРЕПЛЯЙТЕ КАК СКРИПТ В УЗЛЕ, А НЕ ЭТОТ СКРИПТ
 public partial class BaseEnemyScript : CharacterBody2D
@@ -57,61 +58,15 @@ public partial class BaseEnemyScript : CharacterBody2D
         
     }
 
-    protected virtual void UpdateAnimation()
-    {
-        if (_sprite == null) return;
-
-        if (Velocity.Length() > 10)
-            _sprite.Play("walk");
-        else if (!_isAttacking)
-            _sprite.Play("idle");
-            
-        FlipSprite(Velocity);
-    }
-
     protected bool HasLineOfSight()
     {
         if (_visionRay == null) return true;
         return !_visionRay.IsColliding();
     }
 
-    protected virtual void ChaseHero()
-    {
-       if (_agent == null) return;
-        Vector2 nextPathPosition = _agent.GetNextPathPosition();
-        Vector2 direction = (nextPathPosition - GlobalPosition).Normalized();
+    protected virtual void ChaseHero(){}
 
-        Velocity = direction * Speed;
-        MoveAndSlide();
-    }
-
-    protected virtual void Attack()
-    {
-         
-    }
-
-
-    protected virtual void FlipSprite(Vector2 velocity)
-	{
-		bool shouldFaceLeft = velocity.X < 0;
-	
-		// Если хотим влево И уже смотрим влево (FlipH = true) -> выходим
-		if (shouldFaceLeft && _sprite.FlipH) return;
-		
-		// Если хотим вправо И уже смотрим вправо (FlipH = false) -> выходим
-		if (!shouldFaceLeft && !_sprite.FlipH) return;
-		
-		// Сбрасываем анимацию меча перед поворотом
-		
-		if (shouldFaceLeft)
-		{
-			_sprite.FlipH = true;
-		}
-		else
-		{
-			_sprite.FlipH = false;
-		}
-	}
+    protected virtual void Attack(){}
 
     public virtual void TakeDamage(int value)
     {

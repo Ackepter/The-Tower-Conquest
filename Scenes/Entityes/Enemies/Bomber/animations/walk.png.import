@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p0sy5q7ra65q"
-path="res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"
+uid="uid://chbmnvm3ale43"
+path="res://.godot/imported/walk.png-78e3e84ce43bca2728888cf10392e6d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Entityes/Poor Human/animations/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"]
+source_file="res://Scenes/Entityes/Enemies/Bomber/animations/walk.png"
+dest_files=["res://.godot/imported/walk.png-78e3e84ce43bca2728888cf10392e6d0.ctex"]
 
 [params]
 

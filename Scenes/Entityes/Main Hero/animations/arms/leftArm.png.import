@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p0sy5q7ra65q"
-path="res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"
+uid="uid://0b027le4d7so"
+path="res://.godot/imported/leftArm.png-58f54804c2eef8b2e999ea0bee8ae195.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Entityes/Poor Human/animations/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"]
+source_file="res://Scenes/Entityes/Main Hero/animations/arms/leftArm.png"
+dest_files=["res://.godot/imported/leftArm.png-58f54804c2eef8b2e999ea0bee8ae195.ctex"]
 
 [params]
 

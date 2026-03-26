@@ -7,18 +7,13 @@ public partial class ProgressBarScript : Godot.ProgressBar
 	protected StyleBoxFlat sbBackground{get;set;}
  
     public override void _Ready()
-	{
-		GD.Print("ProgressBar: Ready parent");
+	{ 
 		HealthBarTheme();
 		ShowPercentage = false;
 		Size = new Vector2(20, 2);
 		
 		SizeFlagsHorizontal = 0;
 		SizeFlagsVertical = 0;
-	}
-
-    public override void _Process(double delta) {
-
 	}
 
     protected void HealthBarTheme() {

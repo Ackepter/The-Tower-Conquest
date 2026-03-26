@@ -1,31 +1,38 @@
 [gd_scene format=3 uid="uid://dwggga6wfjhb"]
 
-[ext_resource type="PackedScene" uid="uid://dwjraddx3y8ms" path="res://Scenes/Maps/map1.tscn" id="1_1r6ip"]
+[ext_resource type="PackedScene" uid="uid://dwjraddx3y8ms" path="res://Scenes/Maps/Map1/map1.tscn" id="1_1r6ip"]
 [ext_resource type="Script" uid="uid://c5wrij8344u8c" path="res://Scenes/Main/MainScripts.cs" id="1_5yls4"]
 [ext_resource type="Texture2D" uid="uid://cyoh6yc173dov" path="res://Resourses/backs/black.png" id="1_qw60k"]
 [ext_resource type="PackedScene" uid="uid://j613pb40l0a1" path="res://Scenes/Entityes/Main Hero/main_character.tscn" id="2_lixft"]
-[ext_resource type="PackedScene" uid="uid://bqn0sm6lfgesx" path="res://Scenes/Entityes/Poor Human/poor_human.tscn" id="5_p6jpk"]
-[ext_resource type="PackedScene" uid="uid://deb72j7w4uk4r" path="res://Scenes/Entityes/Poisons/BigHeal/heal_poison_big.tscn" id="6_2a143"]
-[ext_resource type="PackedScene" uid="uid://cnbrcbjsax6xt" path="res://Scenes/Entityes/Poisons/SmallHeal/heal_poison_small.tscn" id="7_xlvfx"]
+[ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="5_p6jpk"]
+[ext_resource type="PackedScene" uid="uid://bqn0sm6lfgesx" path="res://Scenes/Entityes/Poor Human/poor_human.tscn" id="6_xlvfx"]
+[ext_resource type="PackedScene" uid="uid://deb72j7w4uk4r" path="res://Scenes/Entityes/Poisons/BigHeal/heal_poison_big.tscn" id="7_y3v7k"]
 
 [node name="Main" type="Node2D" unique_id=2107342026]
 script = ExtResource("1_5yls4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1752699902]
-position = Vector2(39.999996, -95.99999)
+position = Vector2(56, -72)
 scale = Vector2(5, 5)
 texture = ExtResource("1_qw60k")
 
 [node name="FirstMap" parent="." unique_id=248762463 instance=ExtResource("1_1r6ip")]
 position = Vector2(144, 40)
 
+[node name="HealPoisonBig" parent="FirstMap" unique_id=1241941863 instance=ExtResource("7_y3v7k")]
+position = Vector2(-272, -16)
+
 [node name="MainCharacter" parent="FirstMap" unique_id=1170352028 instance=ExtResource("2_lixft")]
-position = Vector2(-216, -208)
+position = Vector2(-272, -232)
 
-[node name="HealPoisonBig" parent="FirstMap" unique_id=1241941863 instance=ExtResource("6_2a143")]
-position = Vector2(-232, 0)
+[node name="Camera2D" type="Camera2D" parent="FirstMap/MainCharacter" unique_id=965594651]
 
-[node name="HealPoisonSmall" parent="FirstMap" unique_id=205890444 instance=ExtResource("7_xlvfx")]
+[node name="HpBar" type="ProgressBar" parent="FirstMap/MainCharacter/Camera2D" unique_id=1789190114]
+offset_left = -128.0
+offset_top = -120.0
+offset_right = -64.0
+offset_bottom = -93.0
+script = ExtResource("5_p6jpk")
 
-[node name="PoorHuman" parent="." unique_id=1419053090 instance=ExtResource("5_p6jpk")]
-position = Vector2(0, -16)
+[node name="PoorHuman" parent="." unique_id=1419053090 instance=ExtResource("6_xlvfx")]
+position = Vector2(0, 16)

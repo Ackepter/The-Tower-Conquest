@@ -2,7 +2,7 @@ using Godot;
 using System;
 
 public partial class HpBarScripts : ProgressBar
-{
+{ 
     private MainCharacter _hero;
 	private StyleBoxFlat sbFill;
 	private StyleBoxFlat sbBackground; 

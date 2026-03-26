@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p0sy5q7ra65q"
-path="res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"
+uid="uid://ctysvpqx2bpqo"
+path="res://.godot/imported/Orc-Walk.png-477fa77de72380e48053c0a51581e273.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Entityes/Poor Human/animations/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"]
+source_file="res://Scenes/Entityes/Enemies/Orcs/Orc-Walk.png"
+dest_files=["res://.godot/imported/Orc-Walk.png-477fa77de72380e48053c0a51581e273.ctex"]
 
 [params]
 

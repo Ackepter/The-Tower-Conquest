@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://p0sy5q7ra65q"
-path="res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"
+uid="uid://khbrpk04giaw"
+path="res://.godot/imported/Archer-atk-spritesheet.png-fbcc0b2b2bf0948f12e26b82892b2918.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Scenes/Entityes/Poor Human/animations/hurt.png"
-dest_files=["res://.godot/imported/hurt.png-3ef362b2498bed06b5b46a4afa342136.ctex"]
+source_file="res://Scenes/Entityes/Enemies/Archer/Archer-atk-spritesheet.png"
+dest_files=["res://.godot/imported/Archer-atk-spritesheet.png-fbcc0b2b2bf0948f12e26b82892b2918.ctex"]
 
 [params]
 
