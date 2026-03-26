@@ -1,51 +1,51 @@
-[gd_scene format=3 uid="uid://j613pb40l0a1"]
+[gd_scene format=3 uid="uid://c0b7c6vfnatnu"]
 
-[ext_resource type="Script" uid="uid://bnrtvfdb8g7uc" path="res://Scenes/Entityes/Main Hero/MainCharacter.cs" id="1_7rls4"]
-[ext_resource type="Texture2D" uid="uid://1lrhpi7ni7tl" path="res://Scenes/Entityes/Main Hero/animations/hurt.png" id="2_a676m"]
-[ext_resource type="Texture2D" uid="uid://c8qb8r578tma0" path="res://Scenes/Entityes/Main Hero/animations/idle.png" id="3_8wtfx"]
-[ext_resource type="Texture2D" uid="uid://cmy2oi3uhcsty" path="res://Scenes/Entityes/Main Hero/animations/walk.png" id="4_3lbuj"]
-[ext_resource type="Texture2D" uid="uid://bvai00c5afmqo" path="res://Resourses/swords/woodenSword.png" id="5_8wtfx"]
-[ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="6_3lbuj"]
-[ext_resource type="Script" uid="uid://dfgeflne83yys" path="res://Scenes/Entityes/Main Hero/XpBar.cs" id="7_75cit"]
+[ext_resource type="Script" uid="uid://bnrtvfdb8g7uc" path="res://Scenes/Entityes/Main Hero/MainCharacter.cs" id="1_miu6u"]
+[ext_resource type="Texture2D" uid="uid://1lrhpi7ni7tl" path="res://Scenes/Entityes/Main Hero/animations/hurt.png" id="2_tfcj0"]
+[ext_resource type="Texture2D" uid="uid://c8qb8r578tma0" path="res://Scenes/Entityes/Main Hero/animations/idle.png" id="3_pksxv"]
+[ext_resource type="Texture2D" uid="uid://cmy2oi3uhcsty" path="res://Scenes/Entityes/Main Hero/animations/walk.png" id="4_mokuh"]
+[ext_resource type="Texture2D" uid="uid://bvai00c5afmqo" path="res://Resourses/swords/woodenSword.png" id="5_64aaf"]
+[ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="6_v5p23"]
+[ext_resource type="Script" uid="uid://dfgeflne83yys" path="res://Scenes/Entityes/Main Hero/XpBar.cs" id="7_j0jck"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75cit"]
-atlas = ExtResource("2_a676m")
+atlas = ExtResource("2_tfcj0")
 region = Rect2(0, 0, 14, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vvdt1"]
-atlas = ExtResource("2_a676m")
+atlas = ExtResource("2_tfcj0")
 region = Rect2(14, 0, 14, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pb3wk"]
-atlas = ExtResource("2_a676m")
+atlas = ExtResource("2_tfcj0")
 region = Rect2(28, 0, 14, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5rj8r"]
-atlas = ExtResource("3_8wtfx")
+atlas = ExtResource("3_pksxv")
 region = Rect2(0, 0, 10, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qn2p4"]
-atlas = ExtResource("3_8wtfx")
+atlas = ExtResource("3_pksxv")
 region = Rect2(10, 0, 10, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ewe2d"]
-atlas = ExtResource("3_8wtfx")
+atlas = ExtResource("3_pksxv")
 region = Rect2(20, 0, 10, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bob6n"]
-atlas = ExtResource("4_3lbuj")
+atlas = ExtResource("4_mokuh")
 region = Rect2(0, 0, 14, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u16in"]
-atlas = ExtResource("4_3lbuj")
+atlas = ExtResource("4_mokuh")
 region = Rect2(14, 0, 14, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dgeqe"]
-atlas = ExtResource("4_3lbuj")
+atlas = ExtResource("4_mokuh")
 region = Rect2(28, 0, 14, 20)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5b2if"]
-atlas = ExtResource("4_3lbuj")
+atlas = ExtResource("4_mokuh")
 region = Rect2(42, 0, 14, 20)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_atqor"]
@@ -98,7 +98,7 @@ animations = [{
 
 [node name="MainCharacter" type="CharacterBody2D" unique_id=1170352028 groups=["Player"]]
 collision_mask = 30
-script = ExtResource("1_7rls4")
+script = ExtResource("1_miu6u")
 
 [node name="Player" type="AnimatedSprite2D" parent="." unique_id=1694059112]
 sprite_frames = SubResource("SpriteFrames_atqor")
@@ -109,13 +109,13 @@ frame_progress = 0.606389
 position = Vector2(8, 0)
 rotation = 0.85013014
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("5_8wtfx")
+texture = ExtResource("5_64aaf")
 
 [node name="SwordLeft" type="Sprite2D" parent="." unique_id=604354025]
 position = Vector2(-8, 0)
 rotation = -0.84997535
 scale = Vector2(0.7, 0.7)
-texture = ExtResource("5_8wtfx")
+texture = ExtResource("5_64aaf")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2025310438]
 
@@ -124,12 +124,12 @@ offset_left = -128.0
 offset_top = -120.0
 offset_right = -64.0
 offset_bottom = -93.0
-script = ExtResource("6_3lbuj")
+script = ExtResource("6_v5p23")
 
 [node name="XpBar" type="ProgressBar" parent="Camera2D" unique_id=1899751906]
 offset_right = 4.0
 offset_bottom = 27.0
-script = ExtResource("7_75cit")
+script = ExtResource("7_j0jck")
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=701499585]
 polygon = PackedVector2Array(-5, -8, 5, -8, 5, 8, -5, 8)

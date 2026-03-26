@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://cwfgbxatlhcxp"
+TransitionManager="*uid://dlbdwmenp8bp4"
 
 [display]
 

@@ -3,10 +3,10 @@ using Godot;
  
 public partial class PoorHuman : BaseEnemyScript
 {
-    public override float Speed => 30f;
+	public override float Speed => 30f;
 
 
-    private Sprite2D[] _swords = new Sprite2D[2];
+	private Sprite2D[] _swords = new Sprite2D[2];
 	private Sprite2D _currentSword;
 	private Tween _swordTween;
 
@@ -30,14 +30,14 @@ public partial class PoorHuman : BaseEnemyScript
 	private float _directionMultiplier = 1f;
 
 
-    private Area2D _attackHitbox;
-    private CollisionShape2D _attackHitboxCollison;
+	private Area2D _attackHitbox;
+	private CollisionShape2D _attackHitboxCollison;
 
-    public override void _Ready()
-    {
-        _attackHitbox = GetNode<Area2D>("AttackHitbox");
+	public override void _Ready()
+	{
+		_attackHitbox = GetNode<Area2D>("AttackHitbox");
 		_attackHitboxCollison = GetNode<CollisionShape2D>("AttackHitbox/CollisionShape2D");
-        _swords[0]= GetNode<Sprite2D>("SwordLeft");
+		_swords[0]= GetNode<Sprite2D>("SwordLeft");
 		_swords[1]= GetNode<Sprite2D>("SwordRight");
 		_currentSword = _swords[1];
 		_currentSword.Show();
@@ -46,44 +46,44 @@ public partial class PoorHuman : BaseEnemyScript
 
 
 		_attackHitbox.BodyEntered += OnBodyEntered;
-        base._Ready();
-        
-    }
-    protected override void SetupEnemy()
-    {
-         
-    }
+		base._Ready();
+		
+	}
+	protected override void SetupEnemy()
+	{
+		 
+	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        base._PhysicsProcess(delta);
+	public override void _PhysicsProcess(double delta)
+	{
+		base._PhysicsProcess(delta);
 
-        if (_cooldownAttack > 0)
+		if (_cooldownAttack > 0)
 			_cooldownAttack -= (float)delta;
 
 		if (!_isAttacking)
 		{
 			if (distance < RecognizeDistance && HasLineOfSight())
-        {
-            if (distance > 20)
-            {
-                ChaseHero();
-            }
-            else if (distance <= 20 && _canAttack && !_isAttacking)
-            {
-                Attack();
-            }
-        }
-        else
-        {
-            Velocity = Velocity.MoveToward(Vector2.Zero, Speed * (float)delta);
-            MoveAndSlide();
-        }
-        	UpdateAnimation();
+		{
+			if (distance > 20)
+			{
+				ChaseHero();
+			}
+			else if (distance <= 20 && _canAttack && !_isAttacking)
+			{
+				Attack();
+			}
 		}
-    }
+		else
+		{
+			Velocity = Velocity.MoveToward(Vector2.Zero, Speed * (float)delta);
+			MoveAndSlide();
+		}
+			UpdateAnimation();
+		}
+	}
 
-    public async void PerformAttack() 
+	public async void PerformAttack() 
 	{
 		_isAttacking = true;
 		_cooldownAttack = _attackCooldownTime + WindUpTime + SlashTime + ReturnTime;
@@ -196,7 +196,7 @@ public partial class PoorHuman : BaseEnemyScript
 			MainCharacter hero = body as MainCharacter;
 			
 			if (hero != null) {
-                hero.GetDamage(10);
+				hero.GetDamage(10);
 			}
 			else
 			{
@@ -205,17 +205,17 @@ public partial class PoorHuman : BaseEnemyScript
 		}
 	}
 
-     protected override void UpdateAnimation()
-    {
-        if (_sprite == null) return;
+	 protected override void UpdateAnimation()
+	{
+		if (_sprite == null) return;
 
-        if (Velocity.Length() > 10)
-            _sprite.Play("walk");
-        else if (!_isAttacking)
-            _sprite.Play("idle");
-            
-        FlipSprite(Velocity);
-    }
+		if (Velocity.Length() > 10)
+			_sprite.Play("walk");
+		else if (!_isAttacking)
+			_sprite.Play("idle");
+			
+		FlipSprite(Velocity);
+	}
 
 	protected override void FlipSprite(Vector2 velocity)
 	{
@@ -255,11 +255,11 @@ public partial class PoorHuman : BaseEnemyScript
 		_attackHitboxCollison.Disabled = true;
 	}
 
-    protected override void Attack()
-    {
-        base.Attack();
+	protected override void Attack()
+	{
+		base.Attack();
 
-        PerformAttack();
-    }
-    
+		PerformAttack();
+	}
+	
 }

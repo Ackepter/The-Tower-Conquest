@@ -7,6 +7,10 @@ public partial class MainCharacter : CharacterBody2D
 	private const int _maxHp = 100;
 
 	private int _currentHp = _maxHp;
+	[Export] public float MaxXP { get; set; } = 100f;
+	[Export] public int Level { get; set; } = 1;
+	public float CurrentXP { get; set; } = 0f;
+	private ProgressBar _xpBar;
 	public int GetCurrentHp => _currentHp;
 	public int GetMaxHp => _maxHp;
 	private AnimatedSprite2D _animatedSprite;
@@ -47,7 +51,31 @@ public partial class MainCharacter : CharacterBody2D
 		_currentSword.Show();
 		_swordBasePosition = _currentSword.Position;
 		_swordBaseRotation = _currentSword.Rotation;
+		
+		_xpBar = GetNodeOrNull<ProgressBar>("Camera2D/XPBar");
+		UpdateXPBar();
+		
+		 GD.Print($"🔍 [Spawn] Вызываем TransitionManager.GetNextSpawn()...");
+	Vector2 spawnPos = TransitionManager.GetNextSpawn();
+	GD.Print($"🔍 [Spawn] Получено: {spawnPos}");
+	GD.Print($"🔍 [Spawn] Равно Vector2.Zero? {spawnPos == Vector2.Zero}");
+	
+	
+	var (savedHp, savedXp, savedLevel, savedMaxXp) = TransitionManager.GetSavedProgress();
+	
+	
+	if (savedLevel > 1 || savedXp > 0 || savedHp < 100)
+	{
+		_currentHp = savedHp;
+		CurrentXP = savedXp;
+		Level = savedLevel;
+		MaxXP = savedMaxXp;
+		UpdateXPBar();
 	}
+
+	}
+	
+
 	
 	public override void _PhysicsProcess(double delta)
 	{
@@ -67,41 +95,41 @@ public partial class MainCharacter : CharacterBody2D
 	}
 	
 	public override void _Input(InputEvent @event)
-    {
-        if (@event is InputEventMouseButton mouseButton && 
-            mouseButton.Pressed && 
-            mouseButton.ButtonIndex == MouseButton.Left)
-        {
-            SelectEnemyAtMousePosition();
-        }
-    }
+	{
+		if (@event is InputEventMouseButton mouseButton && 
+			mouseButton.Pressed && 
+			mouseButton.ButtonIndex == MouseButton.Left)
+		{
+			SelectEnemyAtMousePosition();
+		}
+	}
 	private void SelectEnemyAtMousePosition()
-    {
-        Vector2 mousePos = GetGlobalMousePosition();
+	{
+		Vector2 mousePos = GetGlobalMousePosition();
 
-        var spaceState = GetWorld2D().DirectSpaceState;
-        var query = new PhysicsPointQueryParameters2D();
-        query.Position = mousePos;
-        var results = spaceState.IntersectPoint(query);
+		var spaceState = GetWorld2D().DirectSpaceState;
+		var query = new PhysicsPointQueryParameters2D();
+		query.Position = mousePos;
+		var results = spaceState.IntersectPoint(query);
 
-        if (results.Count > 0)
-        {
-            var collider = (Node2D)results[0]["collider"];
+		if (results.Count > 0)
+		{
+			var collider = (Node2D)results[0]["collider"];
 
-            if (collider.IsInGroup("enemy"))
-            {
-                CurrentEnemy = collider;
-            }
-            else
-            {
-                CurrentEnemy = null;
-            }
-        }
-        else
-        {
-            CurrentEnemy = null;
-        }
-    }
+			if (collider.IsInGroup("enemy"))
+			{
+				CurrentEnemy = collider;
+			}
+			else
+			{
+				CurrentEnemy = null;
+			}
+		}
+		else
+		{
+			CurrentEnemy = null;
+		}
+	}
 	public void HandleMovement() {
 		float inputX = Input.GetAxis("Left", "Right");
 		float inputY = Input.GetAxis("Up", "Down");
@@ -201,12 +229,15 @@ public partial class MainCharacter : CharacterBody2D
 		BaseEnemyScript enemy = CurrentEnemy as BaseEnemyScript;
 		if (enemy != null) {
 			enemy.TakeDamage(50);
+			if (enemy.GetCurrentHp() <= 0) { 
+				AddXP(25f);
+			}
 		}
 		else
 		{
 			GD.Print("Enemy is not finded");
 		}
-	
+		
 		//ВОЗВРАТ
 	
 		_swordTween = CreateTween();
@@ -297,5 +328,32 @@ public partial class MainCharacter : CharacterBody2D
 			_currentHp += value;
 		}
 		else _currentHp = 100;
+	}
+	
+	public void AddXP(float amount)
+	{
+		CurrentXP += amount;
+		while (CurrentXP >= MaxXP)
+		{
+			LevelUp();
+		}
+		UpdateXPBar();
+	}
+	
+	private void LevelUp()
+	{
+		Level++;
+		CurrentXP -= MaxXP;
+		MaxXP = Mathf.Round(MaxXP * 1.5f);
+		UpdateXPBar();
+	}
+	
+	private void UpdateXPBar()
+	{
+		if (_xpBar != null)
+		{
+			_xpBar.MaxValue = MaxXP;
+			_xpBar.Value = CurrentXP;
+		}
 	}
 }
