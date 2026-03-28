@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dx707qpk8l4f2"]
 
 [ext_resource type="Script" uid="uid://cip1bytyd1wmr" path="res://Scenes/Bases/BaseEnemy/BaseEnemyScript.cs" id="1_rsgsp"]
-[ext_resource type="Script" uid="uid://b08gh233wqcnt" path="res://Scenes/Bases/BaseEnemy/ProgressBarScript.cs" id="2_018v7"]
+[ext_resource type="Script" uid="uid://ctkrudcpopnn0" path="res://Scenes/Bases/BaseEnemy/BaseProgressBarScript.cs" id="2_rsgsp"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rsgsp"]
 
@@ -54,4 +54,6 @@ offset_right = 8.0
 offset_bottom = -16.0
 value = 100.0
 show_percentage = false
-script = ExtResource("2_018v7")
+script = ExtResource("2_rsgsp")
+
+[node name="audioPlayer" type="AudioStreamPlayer" parent="." unique_id=341308966]

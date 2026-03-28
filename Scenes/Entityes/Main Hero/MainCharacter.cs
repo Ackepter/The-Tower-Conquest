@@ -17,7 +17,7 @@ public partial class MainCharacter : CharacterBody2D
     public AnimatedSprite2D _animatedSprite;
     private Area2D _attackHitbox;
     private bool _isAttacking = false;
-    private const float _attackCooldownTime = 0.5f;
+    private const float _attackCooldownTime = 0.4f;
     
     private AnimatedSprite2D[] _arms = new AnimatedSprite2D[2];
     
@@ -28,8 +28,13 @@ public partial class MainCharacter : CharacterBody2D
     private Vector2 _upAttackHitboxPosition = new Vector2(0,-16);
     private Vector2 _downAttackHitboxPosition = new Vector2(0,16);
     private float _directionMultiplier = 1f;
+
+
+    private AudioStreamPlayer _audioPlayer;
 	public override void _Ready() 
 	{
+        _audioPlayer = GetNode<AudioStreamPlayer>("audioPlayer");
+
 		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
         _attackPlayer = GetNode< AnimationPlayer>("AttackPlayer");	
 
@@ -154,22 +159,29 @@ public partial class MainCharacter : CharacterBody2D
 	}
 	
 	public async void PerformAttack() {
-        _isAttacking = true;
+
+        if (!_isAttacking)
+        {
+            _isAttacking = true;
         
+        
+            if(_attackHitbox.Position == _rightAttackHitboxPosition) _attackPlayer.Play("attackRight");
+            else if(_attackHitbox.Position == _leftAttackHitboxPosition) _attackPlayer.Play("attackLeft");
+            else if(_attackHitbox.Position == _downAttackHitboxPosition) _attackPlayer.Play("attackDown");
+            else if(_attackHitbox.Position == _upAttackHitboxPosition) _attackPlayer.Play("attackUp");
 
-        if(_attackHitbox.Position == _rightAttackHitboxPosition) _attackPlayer.Play("attackRight");
-        else if(_attackHitbox.Position == _leftAttackHitboxPosition) _attackPlayer.Play("attackLeft");
-        else if(_attackHitbox.Position == _downAttackHitboxPosition) _attackPlayer.Play("attackDown");
-        else if(_attackHitbox.Position == _upAttackHitboxPosition) _attackPlayer.Play("attackUp");
-    
+            _audioPlayer.Stream = GD.Load<AudioStream>("res://Scenes/Entityes/Main Hero/sounds/punch.mp3");
+            _audioPlayer.Play();
 
-        var Timer = GetTree().CreateTimer(_attackCooldownTime);
+            var Timer = GetTree().CreateTimer(_attackCooldownTime);
 
-		Timer.Timeout += () => {
-			if (IsInstanceValid(this)) {
-				_isAttacking = false;
-			}
-		};
+            Timer.Timeout += () => {
+                if (IsInstanceValid(this)) {
+                    _isAttacking = false;
+                }
+            };
+        }
+        
     }
 	
 	public void GetDamage(int value)
@@ -178,19 +190,28 @@ public partial class MainCharacter : CharacterBody2D
         _cooldownHurting = _cooldownHurtingTime;
 		if(value < 0) value *= -1;
 		
-		if(_currentHp - value >= 0)
+		if(_currentHp - value > 0)
 		{
 			_currentHp -= value;
 		}
-		else _currentHp = 0;
+        else
+        {
+            _currentHp = 0;
+            GetTree().ChangeSceneToFile("res://Scenes/GameOver/game_over.tscn");
+        }
 	}
 	public void GetHeal(int value)
 	{
 		if(value < 0) value *= -1;
 
+        _audioPlayer.Stream = GD.Load<AudioStream>("res://Scenes/Entityes/Main Hero/sounds/heal.mp3");
+        _audioPlayer.VolumeDb += 30;
+		_audioPlayer.Play();
+        _audioPlayer.VolumeDb -= 30;
+
 		if(_currentHp + value <= 100)
 		{
-			_currentHp += value;
+			_currentHp += value;				
 		}
 		else _currentHp = 100;
 	}

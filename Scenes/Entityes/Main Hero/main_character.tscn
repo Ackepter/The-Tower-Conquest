@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://c8fwsihq8yeen" path="res://Scenes/Entityes/Main Hero/animations/arms/armRight.png" id="12_atqor"]
 [ext_resource type="Texture2D" uid="uid://dg60el1q75e1r" path="res://Scenes/Entityes/Main Hero/animations/arms/upLeftArm.png" id="13_qqvam"]
 [ext_resource type="Texture2D" uid="uid://c5fjrgaxcr60x" path="res://Scenes/Entityes/Main Hero/animations/arms/upRightArm.png" id="14_7igph"]
+[ext_resource type="AudioStream" uid="uid://c3nr3moiatqjr" path="res://Scenes/Entityes/Main Hero/sounds/punch.mp3" id="14_u16in"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pb3wk"]
 atlas = ExtResource("2_3lbuj")
@@ -514,7 +515,7 @@ sprite_frames = SubResource("SpriteFrames_atqor")
 animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=701499585]
-polygon = PackedVector2Array(-8, -10, 8, -10, 8, 11, -8, 11)
+polygon = PackedVector2Array(-8, 0, 8, 0, 8, 11, -8, 11)
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=216047444]
 collision_mask = 4
@@ -541,5 +542,9 @@ position = Vector2(8, 0)
 sprite_frames = SubResource("SpriteFrames_2cg4t")
 animation = &"downLeft"
 autoplay = "downLeft"
+
+[node name="audioPlayer" type="AudioStreamPlayer" parent="." unique_id=1702084170]
+stream = ExtResource("14_u16in")
+volume_db = -10.0
 
 [connection signal="body_entered" from="AttackHitbox" to="." method="OnBodyEntered"]

@@ -13,9 +13,9 @@ config_version=5
 config/name="map_level1"
 run/main_scene="uid://dwggga6wfjhb"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
-config/icon="res://icon.svg"
-<<<<<<<HEADconfig/name="firstGame"
-<<<<<<<HEAD<<<<<<<HEADconfig/name="firstGame"
+config/icon="uid://bpub3ox0encc7"
+<<<<<<<HEADconfig/name="The Tower Conquest"
+<<<<<<<HEAD<<<<<<<HEADconfig/name="The Tower Conquest"
 
 [autoload]
 
@@ -25,6 +25,7 @@ Global="*uid://cwfgbxatlhcxp"
 
 window/size/viewport_width=256
 window/size/viewport_height=240
+window/size/mode=3
 window/size/window_width_override=1024
 window/size/window_height_override=960
 window/stretch/mode="canvas_items"

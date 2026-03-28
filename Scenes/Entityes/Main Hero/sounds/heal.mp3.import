@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cuatlsvupsiut"
+path="res://.godot/imported/heal.mp3-cf7d4f24adc5a0b694b5fcb5a2119bac.mp3str"
+
+[deps]
+
+source_file="res://Scenes/Entityes/Main Hero/sounds/heal.mp3"
+dest_files=["res://.godot/imported/heal.mp3-cf7d4f24adc5a0b694b5fcb5a2119bac.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

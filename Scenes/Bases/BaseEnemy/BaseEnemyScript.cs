@@ -30,7 +30,7 @@ public partial class BaseEnemyScript : CharacterBody2D
         _sprite = GetNode<AnimatedSprite2D>("AnimatedSprite");
         _visionRay = GetNode<RayCast2D>("VisionRay");
         _agent = GetNode<NavigationAgent2D>("NavigationAgent2D");
-        _hero = GetNode<CharacterBody2D>("../FirstMap/MainCharacter");
+        _hero = GetNode<CharacterBody2D>("../MainCharacter");
 
         _currentHp = MaxHp;
         

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://y5i4oqg4yjvs"]
+
+[ext_resource type="Script" uid="uid://de8luljqn856a" path="res://Scenes/GameOver/GameOverScript.cs" id="1_dncx1"]
+[ext_resource type="Texture2D" uid="uid://bwevicaptujvt" path="res://Scenes/GameOver/gameOver.png" id="1_ojehl"]
+[ext_resource type="Script" uid="uid://ckjgd5ynj85fj" path="res://Scenes/GameOver/ButtonScript.cs" id="3_78750"]
+
+[node name="GameOver" type="Camera2D" unique_id=1624791794]
+script = ExtResource("1_dncx1")
+
+[node name="Picture" type="Sprite2D" parent="." unique_id=1998365556]
+scale = Vector2(0.256, 0.23999998)
+texture = ExtResource("1_ojehl")
+
+[node name="Control" type="Control" parent="." unique_id=783296728]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -73.0
+offset_top = -9.0
+offset_right = 73.0
+offset_bottom = 42.0
+
+[node name="Button" type="Button" parent="Control" unique_id=1252946626]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 9.0
+offset_right = 111.0
+offset_bottom = 48.0
+text = "RESTART"
+script = ExtResource("3_78750")
+
+[connection signal="pressed" from="Control/Button" to="Control/Button" method="OnButtonPresed"]
