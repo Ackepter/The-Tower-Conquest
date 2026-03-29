@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://o1hojjawe5xp" path="res://Scenes/Entityes/Enemies/Dworf/dworf.tscn" id="13_kbpvp"]
 [ext_resource type="PackedScene" uid="uid://deb72j7w4uk4r" path="res://Scenes/Entityes/Poisons/BigHeal/heal_poison_big.tscn" id="14_i3o6i"]
 [ext_resource type="AudioStream" uid="uid://beebujrq5p2tt" path="res://Scenes/Maps/Map1/sounds/The kobold horde.mp3" id="15_kbpvp"]
+[ext_resource type="Script" uid="uid://d4nf7bdxuqco" path="res://Scenes/Maps/Map1/LevelTransition.cs" id="16_i3o6i"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ibjaa"]
 texture = ExtResource("1_p84jh")
@@ -672,6 +673,27 @@ vertices = PackedVector2Array(587, -76, 587, 34.882813, 553, 34.492188, 529.9062
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3, 4), PackedInt32Array(5, 6, 7, 8, 9), PackedInt32Array(10, 6, 5, 11, 12), PackedInt32Array(13, 14, 15, 16), PackedInt32Array(14, 13, 17), PackedInt32Array(18, 19, 20, 21), PackedInt32Array(22, 9, 8, 23, 24), PackedInt32Array(25, 26, 27, 28), PackedInt32Array(28, 27, 29, 30), PackedInt32Array(31, 32, 33, 34), PackedInt32Array(35, 36, 37, 38), PackedInt32Array(39, 40, 41, 42, 43), PackedInt32Array(44, 45, 46, 47, 48), PackedInt32Array(49, 50, 51, 52, 53), PackedInt32Array(54, 55, 56), PackedInt32Array(57, 58, 59, 60, 61), PackedInt32Array(57, 61, 62), PackedInt32Array(57, 62, 63, 64), PackedInt32Array(65, 66, 67, 68, 37), PackedInt32Array(24, 69, 12, 22), PackedInt32Array(70, 71, 30, 29), PackedInt32Array(72, 73, 16, 15, 8), PackedInt32Array(16, 74, 75, 76), PackedInt32Array(77, 70, 29, 78, 79), PackedInt32Array(80, 21, 20, 79, 78, 81), PackedInt32Array(82, 83, 84, 85), PackedInt32Array(86, 82, 85, 87), PackedInt32Array(88, 87, 85, 89, 90, 91), PackedInt32Array(92, 93, 90, 89), PackedInt32Array(94, 95, 96, 97), PackedInt32Array(98, 99, 100, 101), PackedInt32Array(102, 103, 104, 105), PackedInt32Array(106, 107, 108, 109, 110, 111, 112), PackedInt32Array(53, 113, 114, 115), PackedInt32Array(116, 117, 88, 91), PackedInt32Array(91, 90, 118, 119), PackedInt32Array(120, 121, 122), PackedInt32Array(96, 123, 124), PackedInt32Array(97, 96, 124), PackedInt32Array(125, 97, 124, 126, 54), PackedInt32Array(47, 127, 128), PackedInt32Array(105, 129, 39, 130), PackedInt32Array(81, 3, 2, 80), PackedInt32Array(131, 132, 0, 4, 31, 34), PackedInt32Array(133, 134, 135, 136), PackedInt32Array(137, 138, 139, 119), PackedInt32Array(119, 118, 140, 141, 142, 137), PackedInt32Array(143, 144, 145, 146), PackedInt32Array(143, 146, 147, 148), PackedInt32Array(149, 150, 151, 100), PackedInt32Array(152, 153, 102), PackedInt32Array(154, 155, 156, 157), PackedInt32Array(154, 157, 42, 41), PackedInt32Array(158, 159, 160, 42), PackedInt32Array(43, 161, 162, 39), PackedInt32Array(163, 164, 165), PackedInt32Array(166, 167, 168, 64), PackedInt32Array(63, 169, 125, 166, 64), PackedInt32Array(170, 171, 172, 23, 14, 17), PackedInt32Array(173, 174, 175, 131), PackedInt32Array(176, 177, 163, 106), PackedInt32Array(37, 137, 142, 65), PackedInt32Array(6, 178, 7), PackedInt32Array(8, 7, 72), PackedInt32Array(76, 13, 16), PackedInt32Array(179, 76, 75, 180, 170), PackedInt32Array(80, 181, 21), PackedInt32Array(182, 183, 81, 78, 184), PackedInt32Array(166, 125, 54, 56), PackedInt32Array(115, 166, 56, 49, 53), PackedInt32Array(53, 52, 107, 165), PackedInt32Array(3, 185, 4), PackedInt32Array(131, 34, 173), PackedInt32Array(128, 186, 187, 183), PackedInt32Array(147, 136, 135, 38, 37, 68, 148), PackedInt32Array(48, 136, 147, 44), PackedInt32Array(182, 48, 47), PackedInt32Array(183, 182, 47, 128), PackedInt32Array(175, 183, 187, 120), PackedInt32Array(131, 175, 120, 122), PackedInt32Array(131, 122, 111, 110), PackedInt32Array(165, 107, 106, 163), PackedInt32Array(12, 176, 106, 98, 10), PackedInt32Array(152, 102, 105, 130), PackedInt32Array(100, 151, 101), PackedInt32Array(98, 101, 10), PackedInt32Array(42, 160, 43), PackedInt32Array(39, 162, 130), PackedInt32Array(152, 130, 180, 75), PackedInt32Array(12, 11, 22), PackedInt32Array(172, 24, 23), PackedInt32Array(170, 17, 179)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-124, -66, -123, 29, -164, 29, -164, 22, -164, 11, -172, 10, -172, 22, -164, 21, -164, 29, -276, 29, -276, 22, -276, 8, -284, 8, -284, 23, -276, 22, -276, 29, -316, 30, -315, -68, -286, -67, -284, -44, -277, -43, -277, -52, -284, -52, -287, -68, -171, -68, -172, -43, -164, -43, -164, -55, -172, -55, -172, -68), PackedVector2Array(-246, -55, -248, -168, -295, -168, -296, -298, -144, -297, -143, -168, -192, -168, -192, -145, -194, -51), PackedVector2Array(-141, -32, -39, -31, -39, -82, 130, -83, 129, 44, -41, 42, -29, 37, -21, 38, -21, 28, -28, 28, -28, 36, -42, 43, -42, -5, -142, -3), PackedVector2Array(108, -43, 294, -40, 294, -86, 597, -86, 597, 45, 509, 44, 507, 26, 499, 27, 500, 37, 508, 37, 508, 42, 396, 45, 396, 25, 388, 26, 388, 38, 397, 38, 396, 44, 294, 45, 294, -6, 103, -7), PackedVector2Array(326, 18, 375, 17, 375, 144, 519, 142, 520, 24, 563, 23, 563, 137, 580, 138, 579, 163, 587, 164, 587, 154, 579, 154, 579, 137, 598, 136, 599, 238, 581, 232, 581, 242, 587, 243, 588, 232, 599, 237, 598, 267, 316, 268, 317, 235, 307, 234, 307, 243, 317, 244, 316, 267, 292, 270, 291, 137, 307, 137, 307, 165, 314, 165, 316, 153, 305, 154, 305, 136, 325, 136), PackedVector2Array(207, 185, 318, 186, 318, 220, 208, 215), PackedVector2Array(210, 202, 248, 202, 250, 389, 209, 386), PackedVector2Array(160, 356, 297, 358, 297, 387, 276, 390, 284, 390, 284, 382, 276, 382, 276, 390, 297, 387, 300, 434, 289, 434, 289, 420, 272, 420, 272, 434, 300, 434, 300, 497, 288, 497, 288, 485, 272, 485, 272, 497, 300.38217, 497.43683, 301, 561, 287, 560, 287, 549, 273, 549, 273, 561, 301, 561, 301, 600, 160, 599, 161, 562, 191, 562, 191, 550, 178, 550, 178, 562, 161, 562, 160.68785, 497.6943, 193, 498, 193, 486, 178, 486, 178, 497, 161, 498, 161, 432, 192, 432, 192, 421, 178, 421, 178, 432, 161, 432, 160.439, 389.3644, 189, 390, 189, 382, 181, 382, 181, 389, 161, 389), PackedVector2Array(20, 26, 72, 26, 71, 151, 121, 151, 119, 295, 48, 294, 48, 264, 64, 264, 64, 231, 48, 231, 47, 295, -30, 295, -31, 248, -17, 248, -17, 217, -31, 217, -30, 294, -174, 294, -174, 263, -160, 263, -160, 232, -174, 232, -174, 294, -255, 296, -255, 246, -240, 246, -240, 215, -255, 215, -255, 246, -255, 295, -334, 295, -332.6209, 236.71538, -410, 236, -410, 310, -421, 309, -421, 301, -427, 301, -427, 309, -410, 310, -410, 320, -555, 318, -555, 310, -549, 310, -549, 302, -555, 302, -555, 318, -574, 318, -573, 124, -596, 125, -596, 103, -603, 103, -603, 117, -596, 117, -596, 125, -654, 125, -655, -23, -425, -19, -426, 125, -507, 125, -507, 118, -501, 118, -501, 104, -507, 104, -507, 125, -537, 125, -536, 195, -333, 196, -332, 156, -97, 157, -97, 167, -111, 168, -111, 200, -96, 200, -97.21521, 157.3378, 19, 158)])
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kbpvp"]
+size = Vector2(135, 35)
+
+[sub_resource type="CSharpScript" id="CSharpScript_41ujp"]
+script/source = "using Godot;
+using System;
+
+public partial class CollisionShape2d : CollisionShape2D
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
+
 [node name="FirstMap" type="Node2D" unique_id=248762463]
 position = Vector2(641, 368)
 script = ExtResource("1_u2tnd")
@@ -858,6 +880,15 @@ position = Vector2(443, 163)
 [node name="audioPlayer" type="AudioStreamPlayer" parent="." unique_id=1041925287]
 stream = ExtResource("15_kbpvp")
 volume_db = -10.0
+
+[node name="Area2D" type="Area2D" parent="." unique_id=759102367]
+position = Vector2(184, 193)
+script = ExtResource("16_i3o6i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1838558780]
+position = Vector2(46.5, 396.5)
+shape = SubResource("RectangleShape2D_kbpvp")
+script = SubResource("CSharpScript_41ujp")
 
 [connection signal="body_entered" from="StartEscape/SEsc" to="StartEscape/SEsc" method="OnBodyEntered"]
 [connection signal="body_entered" from="EndEscape/EndEscape" to="EndEscape/EndEscape" method="OnBodyEntered"]

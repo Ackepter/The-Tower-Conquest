@@ -20,6 +20,7 @@ config/icon="uid://bpub3ox0encc7"
 [autoload]
 
 Global="*uid://cwfgbxatlhcxp"
+GlobalData="*uid://dyc1iahnk3dw3"
 
 [display]
 
