@@ -1,19 +1,14 @@
 using Godot;
 
-public partial class BaseProgressBarScript : Godot.ProgressBar
+public partial class ProgressBarScript : Godot.ProgressBar
 { 
 	//enemy короче в дочернем классе будет ок
 	protected StyleBoxFlat sbFill{get;set;}
 	protected StyleBoxFlat sbBackground{get;set;}
  
-<<<<<<< HEAD:Scenes/Bases/BaseEnemy/ProgressBarScript.cs
 	public override void _Ready()
 	{
 		GD.Print("ProgressBar: Ready parent");
-=======
-	public override void _Ready()
-	{ 
->>>>>>> main:Scenes/Bases/BaseEnemy/BaseProgressBarScript.cs
 		HealthBarTheme();
 		ShowPercentage = false;
 		Size = new Vector2(20, 2);
@@ -22,15 +17,11 @@ public partial class BaseProgressBarScript : Godot.ProgressBar
 		SizeFlagsVertical = 0;
 	}
 
-<<<<<<< HEAD:Scenes/Bases/BaseEnemy/ProgressBarScript.cs
 	public override void _Process(double delta) {
 
 	}
 
 	protected void HealthBarTheme() {
-=======
-	protected void HealthBarTheme() {
->>>>>>> main:Scenes/Bases/BaseEnemy/BaseProgressBarScript.cs
 		sbFill = new StyleBoxFlat();
 		sbBackground = new StyleBoxFlat();
 		
