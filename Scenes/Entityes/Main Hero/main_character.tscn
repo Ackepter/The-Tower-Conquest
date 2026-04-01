@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://c8qb8r578tma0" path="res://Scenes/Entityes/Main Hero/animations/idle.png" id="3_8wtfx"]
 [ext_resource type="Texture2D" uid="uid://cmy2oi3uhcsty" path="res://Scenes/Entityes/Main Hero/animations/walk.png" id="4_3lbuj"]
 [ext_resource type="Texture2D" uid="uid://bvai00c5afmqo" path="res://Resourses/swords/woodenSword.png" id="5_8wtfx"]
-[ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="6_3lbuj"]
+[ext_resource type="Script" uid="uid://di1i7vm3yosdl" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="6_3lbuj"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75cit"]
 atlas = ExtResource("2_a676m")
@@ -121,6 +121,7 @@ texture = ExtResource("5_8wtfx")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=2025310438]
 
 [node name="HpBar" type="ProgressBar" parent="Camera2D" unique_id=614450530]
+visible = false
 offset_left = -128.0
 offset_top = -120.0
 offset_right = -64.0

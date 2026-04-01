@@ -6,7 +6,7 @@ public partial class ProgressBarScript : Godot.ProgressBar
 	protected StyleBoxFlat sbFill{get;set;}
 	protected StyleBoxFlat sbBackground{get;set;}
  
-    public override void _Ready()
+	public override void _Ready()
 	{
 		GD.Print("ProgressBar: Ready parent");
 		HealthBarTheme();
@@ -17,11 +17,11 @@ public partial class ProgressBarScript : Godot.ProgressBar
 		SizeFlagsVertical = 0;
 	}
 
-    public override void _Process(double delta) {
+	public override void _Process(double delta) {
 
 	}
 
-    protected void HealthBarTheme() {
+	protected void HealthBarTheme() {
 		sbFill = new StyleBoxFlat();
 		sbBackground = new StyleBoxFlat();
 		
