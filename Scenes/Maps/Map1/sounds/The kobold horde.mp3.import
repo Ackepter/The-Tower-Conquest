@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://beebujrq5p2tt"
+path="res://.godot/imported/The kobold horde.mp3-cb541f727c9e36aba29e800a0423b7f6.mp3str"
+
+[deps]
+
+source_file="res://Scenes/Maps/Map1/sounds/The kobold horde.mp3"
+dest_files=["res://.godot/imported/The kobold horde.mp3-cb541f727c9e36aba29e800a0423b7f6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

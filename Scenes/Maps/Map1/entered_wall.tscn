@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://ce0ds23vi5pxp"]
+
+[ext_resource type="Texture2D" uid="uid://ckqu0abgk0cuw" path="res://Scenes/Maps/Map1/enteredWall.png" id="1_ajdp0"]
+
+[sub_resource type="ConvexPolygonShape2D" id="ConvexPolygonShape2D_otyy3"]
+points = PackedVector2Array(21, -2, -21, -2, -21, 2, 21, 2)
+
+[node name="EnteredWall" type="StaticBody2D" unique_id=1263536858]
+collision_layer = 16
+collision_mask = 5
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=868529247]
+shape = SubResource("ConvexPolygonShape2D_otyy3")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=33449821]
+texture = ExtResource("1_ajdp0")
