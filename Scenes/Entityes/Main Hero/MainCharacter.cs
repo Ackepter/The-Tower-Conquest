@@ -43,17 +43,9 @@ public partial class MainCharacter : CharacterBody2D
 	private AudioStreamPlayer _audioPlayer;
 	public override void _Ready() 
 	{
-<<<<<<< HEAD
 		AddToGroup("player");
 		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
-		_swords[0]= GetNode<Sprite2D>("SwordLeft");
-		_swords[1]= GetNode<Sprite2D>("SwordRight");
-		_currentSword = _swords[1];
-		_currentSword.Show();
-		_swordBasePosition = _currentSword.Position;
-		_swordBaseRotation = _currentSword.Rotation;
 		StartShieldRegenSystem();
-=======
 		_audioPlayer = GetNode<AudioStreamPlayer>("audioPlayer");
 
 		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
@@ -74,7 +66,6 @@ public partial class MainCharacter : CharacterBody2D
 				_isAttacking = false;
 			}
 		}
->>>>>>> main
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -94,7 +85,6 @@ public partial class MainCharacter : CharacterBody2D
 		}
 		
 	}
-<<<<<<< HEAD
 	
 	public override void _Input(InputEvent @event)
 	{
@@ -132,8 +122,6 @@ public partial class MainCharacter : CharacterBody2D
 			CurrentEnemy = null;
 		}
 	}
-=======
->>>>>>> main
 	public void HandleMovement() {
 		float inputX = Input.GetAxis("Left", "Right");
 		float inputY = Input.GetAxis("Up", "Down");
@@ -246,13 +234,6 @@ public partial class MainCharacter : CharacterBody2D
 		
 	}
 	
-<<<<<<< HEAD
-		// Мгновенно возвращаем меч в базовое состояние
-		_currentSword.Rotation = _swordBaseRotation;
-		_currentSword.Position = _swordBasePosition;
-
-	}
-	
 	private void StartShieldRegenSystem()
 	{
 		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
@@ -295,25 +276,8 @@ public partial class MainCharacter : CharacterBody2D
 			_currentHp -= remainingDamage;
 			if (_currentHp < 0) _currentHp = 0;
 		}
-=======
-	public void GetDamage(int value)
-	{
-		_isHurting = true;
-		_cooldownHurting = _cooldownHurtingTime;
-		if(value < 0) value *= -1;
+		}
 		
-		if(_currentHp - value > 0)
-		{
-			_currentHp -= value;
-		}
-		else
-		{
-			_currentHp = 0;
-			GetTree().ChangeSceneToFile("res://Scenes/GameOver/game_over.tscn");
-		}
->>>>>>> main
-	}
-	
 	private void RestartShieldRegenTimer()
 	{
 		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
