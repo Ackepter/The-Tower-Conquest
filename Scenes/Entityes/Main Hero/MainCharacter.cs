@@ -8,18 +8,8 @@ public partial class MainCharacter : CharacterBody2D
 	private float _cooldownHurting = 0f;
 	private const float _cooldownHurtingTime = 0.4f;
 	private const int _maxHp = 100;
-	private const int _maxShield = 100;
-	
-	private const float ShieldRegenDelay = 3.0f;      
-	private const int ShieldRegenAmount = 10;      
-	private const float ShieldRegenInterval = 5.0f;
-	
-	private Tween _shieldRegenTween;
 
 	private int _currentHp = _maxHp;
-	private int _currentShield = _maxShield;
-	public int GetCurrentShield => _currentShield;
-	public int GetMaxShield => _maxShield;
 	public int GetCurrentHp => _currentHp;
 	public int GetMaxHp => _maxHp;
 	
@@ -43,17 +33,6 @@ public partial class MainCharacter : CharacterBody2D
 	private AudioStreamPlayer _audioPlayer;
 	public override void _Ready() 
 	{
-<<<<<<< HEAD
-		AddToGroup("player");
-		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
-		_swords[0]= GetNode<Sprite2D>("SwordLeft");
-		_swords[1]= GetNode<Sprite2D>("SwordRight");
-		_currentSword = _swords[1];
-		_currentSword.Show();
-		_swordBasePosition = _currentSword.Position;
-		_swordBaseRotation = _currentSword.Rotation;
-		StartShieldRegenSystem();
-=======
 		_audioPlayer = GetNode<AudioStreamPlayer>("audioPlayer");
 
 		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
@@ -74,7 +53,6 @@ public partial class MainCharacter : CharacterBody2D
 				_isAttacking = false;
 			}
 		}
->>>>>>> main
 	}
 	public override void _PhysicsProcess(double delta)
 	{
@@ -94,46 +72,6 @@ public partial class MainCharacter : CharacterBody2D
 		}
 		
 	}
-<<<<<<< HEAD
-	
-	public override void _Input(InputEvent @event)
-	{
-		if (@event is InputEventMouseButton mouseButton && 
-			mouseButton.Pressed && 
-			mouseButton.ButtonIndex == MouseButton.Left)
-		{
-			SelectEnemyAtMousePosition();
-		}
-	}
-	private void SelectEnemyAtMousePosition()
-	{
-		Vector2 mousePos = GetGlobalMousePosition();
-
-		var spaceState = GetWorld2D().DirectSpaceState;
-		var query = new PhysicsPointQueryParameters2D();
-		query.Position = mousePos;
-		var results = spaceState.IntersectPoint(query);
-
-		if (results.Count > 0)
-		{
-			var collider = (Node2D)results[0]["collider"];
-
-			if (collider.IsInGroup("enemy"))
-			{
-				CurrentEnemy = collider;
-			}
-			else
-			{
-				CurrentEnemy = null;
-			}
-		}
-		else
-		{
-			CurrentEnemy = null;
-		}
-	}
-=======
->>>>>>> main
 	public void HandleMovement() {
 		float inputX = Input.GetAxis("Left", "Right");
 		float inputY = Input.GetAxis("Up", "Down");
@@ -246,56 +184,6 @@ public partial class MainCharacter : CharacterBody2D
 		
 	}
 	
-<<<<<<< HEAD
-		// Мгновенно возвращаем меч в базовое состояние
-		_currentSword.Rotation = _swordBaseRotation;
-		_currentSword.Position = _swordBasePosition;
-
-	}
-	
-	private void StartShieldRegenSystem()
-	{
-		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
-			_shieldRegenTween.Kill();
-		
-		_shieldRegenTween = CreateTween();
-		
-		_shieldRegenTween.TweenInterval(ShieldRegenDelay);
-		_shieldRegenTween.TweenCallback(Callable.From(StartRegenLoop));
-	}
-	
-	private void RegenShieldTick()
-	{
-		if (_currentShield < _maxShield)
-		{
-			_currentShield += ShieldRegenAmount;
-			if (_currentShield > _maxShield)
-				_currentShield = _maxShield;
-		}
-	}
-
-	public void GetDamage(int value)
-	{
-		if (value < 0) value *= -1;
-		RestartShieldRegenTimer();
-		int remainingDamage = value;
-		
-		if (_currentShield > 0) {
-			if (_currentShield >= remainingDamage) {
-				_currentShield -= remainingDamage;
-				remainingDamage = 0;
-			}
-			else {
-				remainingDamage -= _currentShield;
-				_currentShield = 0;
-			}
-		}
-		
-		if (remainingDamage > 0 && _currentHp > 0) {
-			_currentHp -= remainingDamage;
-			if (_currentHp < 0) _currentHp = 0;
-		}
-=======
 	public void GetDamage(int value)
 	{
 		_isHurting = true;
@@ -311,34 +199,7 @@ public partial class MainCharacter : CharacterBody2D
 			_currentHp = 0;
 			GetTree().ChangeSceneToFile("res://Scenes/GameOver/game_over.tscn");
 		}
->>>>>>> main
 	}
-	
-	private void RestartShieldRegenTimer()
-	{
-		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
-			_shieldRegenTween.Kill();
-		
-		_shieldRegenTween = CreateTween();
-		_shieldRegenTween.TweenInterval(ShieldRegenDelay);
-		_shieldRegenTween.TweenCallback(Callable.From(StartRegenLoop));
-	}
-
-	private void StartRegenLoop()
-	{
-		RegenShieldTick();
-		
-		var regenTween = CreateTween();
-		regenTween.TweenInterval(ShieldRegenInterval);
-		regenTween.TweenCallback(Callable.From(StartRegenLoop));
-	}
-	
-	public override void _ExitTree()
-	{
-		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
-			_shieldRegenTween.Kill();
-	}
-	
 	public void GetHeal(int value)
 	{
 		if(value < 0) value *= -1;
