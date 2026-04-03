@@ -211,7 +211,7 @@ public partial class PoorHuman : BaseEnemyScript
 			MainCharacter hero = body as MainCharacter;
 			
 			if (hero != null) {
-				hero.GetDamage(7);
+				hero.GetDamage(21);
 				hero._animatedSprite.Play("hurt");
 			}
 			else

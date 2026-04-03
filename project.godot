@@ -10,8 +10,8 @@ config_version=5
 
 [application]
 
-config/name="map_level1"
-run/main_scene="uid://dwggga6wfjhb"
+config/name="The Tower Conquest"
+run/main_scene="uid://blvmsvmj2tldd"
 config/features=PackedStringArray("4.6", "C#", "GL Compatibility")
 config/icon="uid://bpub3ox0encc7"
 <<<<<<<HEADconfig/name="The Tower Conquest"

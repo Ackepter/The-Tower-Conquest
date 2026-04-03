@@ -211,7 +211,7 @@ public partial class DworfScript : BaseEnemyScript
 			MainCharacter hero = body as MainCharacter;
 			
 			if (hero != null) {
-				hero.GetDamage(8);
+				hero.GetDamage(35);
 				hero._animatedSprite.Play("hurt");
 			}
 			else

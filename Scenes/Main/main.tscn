@@ -2,15 +2,9 @@
 
 [ext_resource type="PackedScene" uid="uid://dwjraddx3y8ms" path="res://Scenes/Maps/Map1/map1.tscn" id="1_1r6ip"]
 [ext_resource type="Script" uid="uid://c5wrij8344u8c" path="res://Scenes/Main/MainScripts.cs" id="1_5yls4"]
-[ext_resource type="Texture2D" uid="uid://cyoh6yc173dov" path="res://Resourses/backs/black.png" id="1_qw60k"]
 
 [node name="Main" type="Node2D" unique_id=2107342026]
 script = ExtResource("1_5yls4")
-
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1752699902 groups=["player"]]
-position = Vector2(56, -72)
-scale = Vector2(5, 5)
-texture = ExtResource("1_qw60k")
 
 [node name="FirstMap" parent="." unique_id=248762463 instance=ExtResource("1_1r6ip")]
 position = Vector2(144, 40)

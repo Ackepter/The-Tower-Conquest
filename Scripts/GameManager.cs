@@ -6,7 +6,7 @@ public partial class GameManager : Node
 	
 	// Статы игрока
 	public int PlayerDamage { get; set; } = 10;
-	public float PlayerSpeed { get; set; } = 200f;
+	public float PlayerSpeed { get; set; } = 100f;
 	public int PlayerMaxHealth { get; set; } = 100;
 	public int PlayerCurrentHealth { get; set; } = 100;
 	
@@ -24,13 +24,17 @@ public partial class GameManager : Node
 		{
 			case "damage_up":
 				PlayerDamage += 5;
+				PlayerSpeed -= 20f;
 				break;
 			case "speed_up":
-				PlayerSpeed += 50f;
+				PlayerSpeed += 20f;
+				PlayerDamage -= 5;
 				break;
 			case "health_up":
 				PlayerMaxHealth += 20;
 				PlayerCurrentHealth += 20;
+				PlayerDamage -= 5;
+				PlayerSpeed -= 20f;
 				break;
 		}
 	}
@@ -44,7 +48,8 @@ public partial class GameManager : Node
 	
 	public int GetCurrentHealth() => PlayerCurrentHealth;
 	public int GetMaxHealth() => PlayerMaxHealth;
-	
+	public float GetSpeed() => PlayerSpeed;
+
 	public void ResetStats()
 	{
 		PlayerDamage = 10;

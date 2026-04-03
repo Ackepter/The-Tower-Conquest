@@ -49,6 +49,8 @@ public partial class MainCharacter : CharacterBody2D
 
 	public override void _Ready() 
 	{
+		_maxHp = 100;
+		_currentHp = 100;
 		// Добавляем в группу (из кода сервера)
 		if (!IsInGroup("player1"))
 			AddToGroup("player1");
@@ -60,14 +62,6 @@ public partial class MainCharacter : CharacterBody2D
 		_arms[1] = GetNode<AnimatedSprite2D>("RightArm");
 		_attackHitbox = GetNode<Area2D>("AttackHitbox");
 		_attackHitbox.BodyEntered += OnBodyEntered;
-		
-		// 🔥 Твой поиск HpBar
-		_healthBar = GetTree().Root.FindChild("HpBar", true, false) as ProgressBar;
-		
-		if (_healthBar == null)
-		{
-			GD.PrintErr("[MainCharacter] ⚠️ HpBar не найден в сцене!");
-		}
 		
 		LoadHealth();
 		
@@ -82,6 +76,7 @@ public partial class MainCharacter : CharacterBody2D
 		{
 			_currentHp = GameManager.Instance.GetCurrentHealth();
 			_maxHp = GameManager.Instance.GetMaxHealth(); // 🔥 Важно: загружаем и максимум!
+			Speed = GameManager.Instance.GetSpeed(); // 🔥 Важно: загружаем и максимум!
 			// 🛡️ Если хочешь сохранять и щиты, раскомментируй:
 			// _currentShield = GameManager.Instance.GetCurrentShield(); 
 			GD.Print($"[MainCharacter] Здоровье загружено: {_currentHp}/{_maxHp}");
