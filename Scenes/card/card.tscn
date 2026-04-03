@@ -1,59 +1,235 @@
 [gd_scene format=3 uid="uid://2b7hw5kf7ywr"]
 
+[ext_resource type="Script" uid="uid://c2wbmjq880qac" path="res://Scenes/card/TypewriterEffect.cs" id="1_h5upu"]
 [ext_resource type="Texture2D" uid="uid://llxidwrglanl" path="res://attackPower.png" id="1_mi0jh"]
+[ext_resource type="Script" uid="uid://debn18y40cfgo" path="res://Scenes/card/CardSelection.cs" id="2_tsqh3"]
 [ext_resource type="Texture2D" uid="uid://cvsuel5k33lii" path="res://healthPower.png" id="2_u1h16"]
+[ext_resource type="Script" uid="uid://ddg2tpfutjsf7" path="res://Scenes/card/CardHover.cs" id="3_0y4bj"]
 [ext_resource type="Texture2D" uid="uid://dntm08tomwfgc" path="res://attackSpeed.png" id="3_h5upu"]
+[ext_resource type="Script" uid="uid://cnareuhrc0xp7" path="res://Scenes/card/CardTexture.cs" id="6_swhpe"]
 
-[node name="Card" type="Node2D" unique_id=1444272094]
-position = Vector2(2, 2)
+[sub_resource type="CSharpScript" id="CSharpScript_tsqh3"]
+script/source = "using Godot;
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=189716383]
+public partial class Card : CanvasLayer
+{
+	[Signal] public delegate void CardSelectedEventHandler(string upgradeId);
 
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=1850322451]
-offset_right = 40.0
-offset_bottom = 23.0
+	public override void _Ready()
+	{
+		 ProcessMode = ProcessModeEnum.Always;
+		// Скрываем всё сразу
+		CallDeferred(nameof(HideCards));
+	}
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=2073157150]
-offset_right = 40.0
-offset_bottom = 40.0
+	private void HideCards()
+	{
+		var canvas = GetNodeOrNull<Control>(\"CanvasLayer\");
+		if (canvas == null) return;
 
-[node name="Panel" type="Panel" parent="CanvasLayer/HBoxContainer" unique_id=190367739]
-layout_mode = 2
+		Control panelLeft = canvas.GetNodeOrNull<Control>(\"Panel\");
+		Control panelRight = canvas.GetNodeOrNull<Control>(\"Panel2\");
+		Control panelCenter = canvas.GetNodeOrNull<Control>(\"Panel3\");
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel" unique_id=1878511563]
+		if (panelLeft != null) 
+		{
+			panelLeft.Visible = false;
+			panelLeft.Scale = Vector2.Zero;
+		}
+		if (panelRight != null) 
+		{
+			panelRight.Visible = false;
+			panelRight.Scale = Vector2.Zero;
+		}
+		if (panelCenter != null) 
+		{
+			panelCenter.Visible = false;
+			panelCenter.Scale = Vector2.Zero;
+		}
+
+		// Запускаем таймер на 1 секунду
+		var timer = GetTree().CreateTimer(1.0f);
+		timer.Timeout += OnTimerTimeout;
+	}
+
+	private void OnTimerTimeout()
+	{
+		var canvas = GetNodeOrNull<Control>(\"CanvasLayer\");
+		if (canvas == null) return;
+
+		Control panelLeft = canvas.GetNodeOrNull<Control>(\"Panel\");
+		Control panelRight = canvas.GetNodeOrNull<Control>(\"Panel2\");
+		Control panelCenter = canvas.GetNodeOrNull<Control>(\"Panel3\");
+
+		if (panelLeft == null || panelRight == null || panelCenter == null) 
+		{
+			GD.PrintErr(\"Не все панели найдены!\");
+			return;
+		}
+
+		// Показываем карты
+		panelLeft.Visible = true;
+		panelRight.Visible = true;
+		panelCenter.Visible = true;
+		
+		// Сбрасываем масштаб
+		panelLeft.Scale = Vector2.Zero;
+		panelRight.Scale = Vector2.Zero;
+		panelCenter.Scale = Vector2.Zero;
+
+		// Запоминаем позиции
+		Vector2 posLeft = panelLeft.Position;
+		float rotLeft = panelLeft.Rotation;
+		
+		Vector2 posRight = panelRight.Position;
+		float rotRight = panelRight.Rotation;
+		
+		Vector2 posCenter = panelCenter.Position;
+
+		// Создаем Tween
+		var tween = GetTree().CreateTween();
+		
+		// 1. Первая карта
+		tween.TweenProperty(panelLeft, \"scale\", Vector2.One, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+		tween.Parallel().TweenProperty(panelLeft, \"position\", posLeft, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+		tween.Parallel().TweenProperty(panelLeft, \"rotation\", rotLeft, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+
+		tween.TweenInterval(0.3f);
+
+		// 2. Вторая карта
+		tween.Parallel().TweenProperty(panelRight, \"scale\", Vector2.One, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+		tween.Parallel().TweenProperty(panelRight, \"position\", posRight, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+		tween.Parallel().TweenProperty(panelRight, \"rotation\", rotRight, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+
+		tween.TweenInterval(0.3f);
+
+		// 3. Третья карта
+		tween.Parallel().TweenProperty(panelCenter, \"scale\", Vector2.One, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+		tween.Parallel().TweenProperty(panelCenter, \"position\", posCenter, 0.5f)
+			 .SetTrans(Tween.TransitionType.Back).SetEase(Tween.EaseType.Out);
+		
+		GD.Print(\"[Card] Анимация завершена!\");
+	}
+}
+"
+
+[node name="Card" type="CanvasLayer" unique_id=841957822]
+script = SubResource("CSharpScript_tsqh3")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=759186512]
+offset_left = -23.0
+offset_top = -10.0
+offset_right = 282.0
+offset_bottom = 271.0
+color = Color(0, 0, 0, 1)
+
+[node name="CanvasLayer" type="Control" parent="." unique_id=1777586989]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_tsqh3")
+
+[node name="TypewriterEffect" type="Label" parent="CanvasLayer" unique_id=1850322451]
 layout_mode = 0
-offset_top = 80.0
-offset_right = 48.0
-offset_bottom = 128.0
+offset_left = 1.0
+offset_top = 11.0
+offset_right = 257.0
+offset_bottom = 42.0
+text = "Выбери одно из улучшений"
+horizontal_alignment = 1
+script = ExtResource("1_h5upu")
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/Panel/VBoxContainer" unique_id=1891408200]
-layout_mode = 2
+[node name="Panel" type="Panel" parent="CanvasLayer" unique_id=190367739]
+layout_mode = 0
+offset_left = -18.0
+offset_top = 3.0
+offset_right = -18.0
+offset_bottom = 55.0
+script = ExtResource("3_0y4bj")
+UpgradeId = "Ярость"
+
+[node name="card1" type="TextureRect" parent="CanvasLayer/Panel" unique_id=1891408200]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 68.0
+offset_right = 113.0
+offset_bottom = 116.0
 texture = ExtResource("1_mi0jh")
+script = ExtResource("6_swhpe")
+UpgradeId = "damage_up"
 
-[node name="Panel2" type="Panel" parent="CanvasLayer/HBoxContainer" unique_id=2057458563]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel2" unique_id=50139650]
+[node name="Label" type="Label" parent="CanvasLayer/Panel" unique_id=1790194253]
 layout_mode = 0
-offset_left = 189.0
-offset_top = 75.0
-offset_right = 237.0
-offset_bottom = 123.0
+offset_left = 78.0
+offset_top = 103.0
+offset_right = 134.0
+offset_bottom = 126.00002
+theme_override_font_sizes/font_size = 6
+text = "Ярость"
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/Panel2/VBoxContainer" unique_id=1331604090]
-layout_mode = 2
+[node name="Panel3" type="Panel" parent="CanvasLayer" unique_id=2057458563]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 1.0
+offset_right = 4.0
+offset_bottom = 41.0
+script = ExtResource("3_0y4bj")
+UpgradeId = "Жизнь"
+
+[node name="card3" type="TextureRect" parent="CanvasLayer/Panel3" unique_id=1331604090]
+layout_mode = 0
+offset_left = 145.0
+offset_top = 69.0
+offset_right = 200.0
+offset_bottom = 117.0
 texture = ExtResource("2_u1h16")
+script = ExtResource("6_swhpe")
+UpgradeId = "health_up"
 
-[node name="Panel3" type="Panel" parent="CanvasLayer/HBoxContainer" unique_id=553565155]
-layout_mode = 2
+[node name="Label" type="Label" parent="CanvasLayer/Panel3" unique_id=1221110506]
+layout_mode = 0
+offset_left = 161.0
+offset_top = 104.0
+offset_right = 201.0
+offset_bottom = 137.0
+theme_override_font_sizes/font_size = 6
+text = "Жизнь "
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer/Panel3" unique_id=2039109030]
+[node name="Panel2" type="Panel" parent="CanvasLayer" unique_id=553565155]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 1.0
+offset_right = 3.0
+offset_bottom = 41.0
+script = ExtResource("3_0y4bj")
+UpgradeId = "Спешка"
+
+[node name="card2" type="TextureRect" parent="CanvasLayer/Panel2" unique_id=1180220206]
 layout_mode = 0
 offset_left = 90.0
-offset_top = 78.0
-offset_right = 138.0
-offset_bottom = 126.0
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/Panel3/VBoxContainer" unique_id=1180220206]
-layout_mode = 2
+offset_top = 70.0
+offset_right = 144.0
+offset_bottom = 118.0
 texture = ExtResource("3_h5upu")
+script = ExtResource("6_swhpe")
+UpgradeId = "speed_up"
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel2" unique_id=938843649]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 105.0
+offset_right = 144.0
+offset_bottom = 138.0
+theme_override_font_sizes/font_size = 6
+text = "Спешка
+"

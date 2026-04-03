@@ -21,6 +21,7 @@ config/icon="uid://bpub3ox0encc7"
 
 Global="*uid://cwfgbxatlhcxp"
 GlobalData="*uid://dyc1iahnk3dw3"
+GameManager="*uid://bfwnt4kr6pk6u"
 
 [display]
 

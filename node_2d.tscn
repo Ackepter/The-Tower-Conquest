@@ -4,6 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://8nmiiqarfcoq" path="res://TilesetVKnight.png" id="1_wtcfe"]
 [ext_resource type="PackedScene" uid="uid://j613pb40l0a1" path="res://Scenes/Entityes/Main Hero/main_character.tscn" id="2_0e48y"]
 [ext_resource type="PackedScene" uid="uid://bktoicfsf4jsf" path="res://Scenes/Entityes/Enemies/Bomber/bomber.tscn" id="4_0hol4"]
+[ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="4_kdubu"]
+[ext_resource type="Script" uid="uid://bruoqsg4nav11" path="res://Scenes/Maps/Map1/ControlForPanel.cs" id="5_d21ai"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_wtcfe"]
 vertices = PackedVector2Array(540.1328, 80, 540.1172, 79.99219, 558.96875, 79.890625, 1000.9375, 589.96875, 672.52344, 589.02344, 675.0625, 567.02344, 1000.0469, 429.1328, 834.0078, 105.67969, 831.4531, 78.39844, 1078.9609, 77.046875, 576.8594, 222.42188, 579.9375, 270.10938, 579.9375, 270.52344, 540.14844, 267.1172, 508.7422, 226.59375, 537.8594, 435.1328, 652.5781, 433.64063, 650.97656, 456.96875, 450.53125, 508.85156, 449.4375, 490, 673, 433.3672, 673, 498.6875, 669.8906, 520.4219, 653.6172, 499.29688, 650.85156, 521.6172, 947.64844, 205.86719, 947.64844, 206.14844, 901.34375, 203, 767.2578, 227.02344, 814.10156, 222.89844, 814.21875, 228.1875, 807.0625, 267, 717.75, 267, 319.34375, 512.40625, 318.34375, 540.25, 119.13281, 545.71094, 121.859375, 341.82813, 285, 437.21094, 308.78906, 206.9375, 306.10938, 81.0625, 388.0078, 82, 484.90625, 205.9375, 556.2031, 202.77344, 507.3125, 206.85938, 654.0625, 602.6172, 654.8125, 644.85156, 387.77344, 641.1328, 652.14844, 602.53125, 384.96094, 518.40625, 390.7422, 515.7422, 485.07813, 225.89063, 477.97656, 268.8672, 136.75, 273.85156, 135.22656, 213, 166.20313, 213, 289.21094, 228.10938, 225.67969, 190.78125, 135, 192.84375, 135, 79.109375, 286.09375, 80.828125, 226.3125, 210.60156, 636.3594, 225.21875, 701.8672, 223.75781, 701.8672, 224.71094, 677.6406, 269, 596.78906, 365.0078, 595.2031, 290, 634.0781, 290, 1078.0313, 365.97656, 758.15625, 288, 841.9531, 288, 1042.8516, 289.04688, 1043.1484, 269.2422, 1045.0938, 223.8125, 285, 339.1328, 452.10156, 433.79688, 366.79688, 490, 813.6797, 203.5625, 745.89844, 204.54688, 745.8906, 203, 833.0703, 175.77344, 833, 175.77344, 833, 140.28906, 370.52344, 414, 305.89063, 407.8828, 305.0625, 338.79688, 485.10156, 335.8203, 451.89844, 414, 851.9297, 203, 833.77344, 203.25781, 578.9922, 79.78125, 811.09375, 78.50781, 813.1172, 176.22656, 813.1172, 176.24219, 992.1172, 268, 951.3906, 225.59375, 951.3906, 225.57031, 365.09375, 510.42188, 992.78906, 204, 1044.9063, 204, 813.7031, 203.54688, 686.7578, 203, 635.65625, 205.49219, 888.1172, 268)
@@ -765,6 +767,48 @@ position = Vector2(509, 588)
 
 [node name="Camera2D" type="Camera2D" parent="MainCharacter" unique_id=442401044]
 position = Vector2(3, -50)
+
+[node name="Control" type="Control" parent="MainCharacter/Camera2D" unique_id=994864094]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -128.0
+offset_top = -120.0
+offset_right = 128.0
+offset_bottom = 120.0
+script = ExtResource("5_d21ai")
+
+[node name="Panel" type="Panel" parent="MainCharacter/Camera2D/Control" unique_id=1659054137]
+z_index = 2
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 191.0
+offset_right = -8.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MainCharacter/Camera2D/Control/Panel" unique_id=1480275635]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 2.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+
+[node name="HpBar" type="ProgressBar" parent="MainCharacter/Camera2D" unique_id=2072837750]
+offset_left = -128.0
+offset_top = -120.0
+offset_right = -64.0
+offset_bottom = -93.0
+script = ExtResource("4_kdubu")
 
 [node name="Bomber" parent="." unique_id=1419053090 instance=ExtResource("4_0hol4")]
 position = Vector2(176, 432)
