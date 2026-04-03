@@ -1,4 +1,4 @@
-using Godot;
+/*using Godot;
 using System;
 
 public partial class HpBarScripts : ProgressBar
@@ -50,3 +50,4 @@ public partial class HpBarScripts : ProgressBar
 		AddThemeStyleboxOverride("background", sbBackground);
 	}
 }
+*/
