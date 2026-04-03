@@ -7,13 +7,29 @@ public partial class MainCharacter : CharacterBody2D
 	public bool _isHurting = false;
 	private float _cooldownHurting = 0f;
 	private const float _cooldownHurtingTime = 0.4f;
+<<<<<<< HEAD
 	
 	// 🔥 ИЗМЕНЕНО: было const, теперь обычная переменная
 	private int _maxHp = 100;
 
 	private int _currentHp = 100;
+=======
+	private const int _maxHp = 100;
+	private const int _maxShield = 100;
+		 
+	private const float ShieldRegenDelay = 3.0f;      
+	private const int ShieldRegenAmount = 10;      
+	private const float ShieldRegenInterval = 5.0f;
+	private Tween _shieldRegenTween;
+
+	private int _currentHp = _maxHp;
+	private int _currentShield = _maxShield;
+	public int GetCurrentShield => _currentShield;
+	public int GetMaxShield => _maxShield;
+>>>>>>> 6cf3b0e42b158d40279ead1356d9f03cfa1ec528
 	public int GetCurrentHp => _currentHp;
 	public int GetMaxHp => _maxHp;
+
 	
 	private AnimationPlayer _attackPlayer;
 	public AnimatedSprite2D _animatedSprite;
@@ -33,11 +49,17 @@ public partial class MainCharacter : CharacterBody2D
 
 	private AudioStreamPlayer _audioPlayer;
 	
+<<<<<<< HEAD
 	// 🔥 HpBar (ищем универсально)
 	private ProgressBar _healthBar;
 
+=======
+>>>>>>> 6cf3b0e42b158d40279ead1356d9f03cfa1ec528
 	public override void _Ready() 
 	{
+		AddToGroup("player1");
+		 GD.Print("🎮 MainCharacter: добавлен в группу 'player'");
+		
 		_audioPlayer = GetNode<AudioStreamPlayer>("audioPlayer");
 		_animatedSprite = GetNode<AnimatedSprite2D>("Player");	
 		_attackPlayer = GetNode<AnimationPlayer>("AttackPlayer");	
@@ -219,26 +241,98 @@ public partial class MainCharacter : CharacterBody2D
 		}
 	}
 	
+	private void StartShieldRegenSystem()
+	  {
+		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
+		  _shieldRegenTween.Kill();
+		
+		_shieldRegenTween = CreateTween();
+		
+		_shieldRegenTween.TweenInterval(ShieldRegenDelay);
+		_shieldRegenTween.TweenCallback(Callable.From(StartRegenLoop));
+	  }
+  
+ 	 private void RegenShieldTick()
+	 {
+		if (_currentShield < _maxShield)
+		{
+		  _currentShield += ShieldRegenAmount;
+		  if (_currentShield > _maxShield)
+			_currentShield = _maxShield;
+		}
+	  }
+	
 	public void GetDamage(int value)
-	{
+	{	
 		_isHurting = true;
 		_cooldownHurting = _cooldownHurtingTime;
+<<<<<<< HEAD
 		if (value < 0) value *= -1;
 		
 		if (_currentHp - value > 0)
 		{
 			_currentHp -= value;
+=======
+				
+		if(value < 0) value *= -1;
+		RestartShieldRegenTimer();
+		int remainingDamage = value;
+		
+		if (_currentShield > 0) {
+			if (_currentShield >= remainingDamage) {
+				_currentShield -= remainingDamage;
+				remainingDamage = 0;
+			}
+			else {
+				remainingDamage -= _currentShield;
+				_currentShield = 0;
+			}
+>>>>>>> 6cf3b0e42b158d40279ead1356d9f03cfa1ec528
 		}
-		else
-		{
-			_currentHp = 0;
-			GetTree().ChangeSceneToFile("res://Scenes/GameOver/game_over.tscn");
+		
+		if (remainingDamage > 0 && _currentHp > 0) {
+			_currentHp -= remainingDamage;
+			
+			if (_currentHp <= 0) {
+				_currentHp = 0;
+				GD.Print($"💀 GAME OVER!");
+				GetTree().ChangeSceneToFile("res://Scenes/GameOver/game_over.tscn");
+			}
 		}
 		
 		SaveHealth();
 		UpdateHealthUI();
 	}
 	
+<<<<<<< HEAD
+=======
+	private void RestartShieldRegenTimer()
+	  {
+		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
+		  _shieldRegenTween.Kill();
+		
+		_shieldRegenTween = CreateTween();
+		_shieldRegenTween.TweenInterval(ShieldRegenDelay);
+		_shieldRegenTween.TweenCallback(Callable.From(StartRegenLoop));
+	  }
+
+  private void StartRegenLoop()
+	  {
+		RegenShieldTick();
+		
+		var regenTween = CreateTween();
+		regenTween.TweenInterval(ShieldRegenInterval);
+		regenTween.TweenCallback(Callable.From(StartRegenLoop));
+	  }
+  
+  public override void _ExitTree()
+	  {
+		if (_shieldRegenTween != null && _shieldRegenTween.IsRunning())
+		  _shieldRegenTween.Kill();
+	  }
+
+	
+>>>>>>> 6cf3b0e42b158d40279ead1356d9f03cfa1ec528
 	public void GetHeal(int value)
 	{
 		if (value < 0) value *= -1;

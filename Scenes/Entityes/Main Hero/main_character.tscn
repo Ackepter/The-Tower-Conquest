@@ -515,6 +515,7 @@ sprite_frames = SubResource("SpriteFrames_atqor")
 animation = &"hurt"
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="." unique_id=701499585]
+visibility_layer = 2
 polygon = PackedVector2Array(-8, 0, 8, 0, 8, 11, -8, 11)
 
 [node name="AttackHitbox" type="Area2D" parent="." unique_id=216047444]
