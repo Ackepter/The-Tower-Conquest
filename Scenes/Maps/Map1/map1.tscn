@@ -7,7 +7,10 @@
 [ext_resource type="Script" uid="uid://xefp21e4pun6" path="res://Scenes/Maps/Map1/EndEscapeScript.cs" id="4_guciy"]
 [ext_resource type="Script" uid="uid://c574hnsdmhqtu" path="res://Scenes/Entityes/Main Hero/HpBarScripts.cs" id="4_icd6t"]
 [ext_resource type="Script" uid="uid://cttx6iwgbalb3" path="res://Scenes/Maps/Map1/SEsc.cs" id="4_xk6rh"]
+[ext_resource type="Texture2D" uid="uid://q84lajys1sov" path="res://Scenes/Entityes/Main Hero/healthBar/underHealth.png" id="6_6s4tl"]
+[ext_resource type="Texture2D" uid="uid://cnrqccrrh0s08" path="res://Scenes/Entityes/Main Hero/healthBar/healthBar.png" id="7_1s63j"]
 [ext_resource type="PackedScene" uid="uid://ce0ds23vi5pxp" path="res://Scenes/Maps/Map1/entered_wall.tscn" id="7_6h0bw"]
+[ext_resource type="Texture2D" uid="uid://d1k3pedihjsfe" path="res://Scenes/Entityes/Main Hero/healthBar/health.png" id="8_i7i65"]
 [ext_resource type="Script" uid="uid://b41ljrx0kfooa" path="res://Scenes/Maps/Map1/EnteredWall.cs" id="8_v78nj"]
 [ext_resource type="Texture2D" uid="uid://bekcgqkfbj14g" path="res://Resourses/movement.png" id="8_vcbhg"]
 [ext_resource type="PackedScene" uid="uid://cl8t6qe8vi647" path="res://Scenes/Entityes/Enemies/Mannequin/mannequin.tscn" id="9_7nr31"]
@@ -730,6 +733,7 @@ position = Vector2(-278, -234)
 [node name="Camera2D" type="Camera2D" parent="MainCharacter" unique_id=1830285011]
 
 [node name="HpBar" type="ProgressBar" parent="MainCharacter/Camera2D" unique_id=1836639715]
+visible = false
 offset_left = -128.0
 offset_top = -120.0
 offset_right = -64.0
@@ -770,6 +774,17 @@ offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 horizontal_alignment = 1
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="MainCharacter/Camera2D" unique_id=544203947]
+z_index = 15
+offset_left = -128.0
+offset_top = -120.0
+offset_right = -68.0
+offset_bottom = -101.0
+nine_patch_stretch = true
+texture_under = ExtResource("6_6s4tl")
+texture_over = ExtResource("7_1s63j")
+texture_progress = ExtResource("8_i7i65")
 
 [node name="StartEscape" type="StaticBody2D" parent="." unique_id=2034616694]
 collision_layer = 2
