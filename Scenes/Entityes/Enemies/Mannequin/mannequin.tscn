@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://cl8t6qe8vi647"]
+
+[ext_resource type="PackedScene" uid="uid://dx707qpk8l4f2" path="res://Scenes/Bases/BaseEnemy/base_enemy.tscn" id="1_npjdh"]
+[ext_resource type="Texture2D" uid="uid://cicg314ycbcig" path="res://Scenes/Entityes/Enemies/Mannequin/animations/hurt.png" id="2_04qvm"]
+[ext_resource type="Script" uid="uid://clk8y8mymhofr" path="res://Scenes/Entityes/Enemies/Mannequin/MannequinScript.cs" id="2_841ag"]
+[ext_resource type="Texture2D" uid="uid://c08qip6buyhrc" path="res://Scenes/Entityes/Enemies/Mannequin/animations/stay.png" id="3_5dyml"]
+[ext_resource type="Script" uid="uid://dbvq2xcsco5rh" path="res://Scenes/Entityes/Enemies/Mannequin/MannequinProgressBar.cs" id="5_7bxef"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bbpmo"]
+radius = 8.0
+height = 16.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_841ag"]
+atlas = ExtResource("2_04qvm")
+region = Rect2(0, 0, 12, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7bxef"]
+atlas = ExtResource("2_04qvm")
+region = Rect2(12, 0, 12, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bbpmo"]
+atlas = ExtResource("2_04qvm")
+region = Rect2(24, 0, 12, 17)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ytlma"]
+atlas = ExtResource("3_5dyml")
+region = Rect2(0, 0, 12, 17)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oxbyb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_841ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7bxef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bbpmo")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ytlma")
+}],
+"loop": false,
+"name": &"stay",
+"speed": 0.0
+}]
+
+[node name="Mannequin" unique_id=1419053090 instance=ExtResource("1_npjdh")]
+collision_layer = 4
+script = ExtResource("2_841ag")
+
+[node name="CollisionShape2D" parent="." index="0" unique_id=1306090086]
+shape = SubResource("CapsuleShape2D_bbpmo")
+
+[node name="AnimatedSprite" parent="." index="1" unique_id=1131688894]
+sprite_frames = SubResource("SpriteFrames_oxbyb")
+animation = &"stay"
+autoplay = "stay"
+
+[node name="VisionRay" parent="." index="3" unique_id=1618457141]
+visible = false
+
+[node name="ProgressBar" parent="Control" parent_id_path=PackedInt32Array(1012546459) index="0" unique_id=1559832950]
+offset_top = -16.0
+offset_right = 0.0
+offset_bottom = -8.0
+script = ExtResource("5_7bxef")

@@ -1,91 +1,16 @@
 [gd_scene format=3 uid="uid://dwggga6wfjhb"]
 
-[ext_resource type="PackedScene" uid="uid://dwjraddx3y8ms" path="res://Scenes/Maps/map1.tscn" id="1_1r6ip"]
+[ext_resource type="PackedScene" uid="uid://dwjraddx3y8ms" path="res://Scenes/Maps/Map1/map1.tscn" id="1_1r6ip"]
 [ext_resource type="Script" uid="uid://c5wrij8344u8c" path="res://Scenes/Main/MainScripts.cs" id="1_5yls4"]
 [ext_resource type="Texture2D" uid="uid://cyoh6yc173dov" path="res://Resourses/backs/black.png" id="1_qw60k"]
-[ext_resource type="PackedScene" uid="uid://j613pb40l0a1" path="res://Scenes/Entityes/Main Hero/main_character.tscn" id="2_lixft"]
-[ext_resource type="PackedScene" uid="uid://bqn0sm6lfgesx" path="res://Scenes/Entityes/Poor Human/poor_human.tscn" id="5_p6jpk"]
-[ext_resource type="PackedScene" uid="uid://deb72j7w4uk4r" path="res://Scenes/Entityes/Poisons/BigHeal/heal_poison_big.tscn" id="6_2a143"]
-[ext_resource type="PackedScene" uid="uid://cnbrcbjsax6xt" path="res://Scenes/Entityes/Poisons/SmallHeal/heal_poison_small.tscn" id="7_xlvfx"]
-[ext_resource type="Texture2D" uid="uid://bi58nia6iuxfo" path="res://Scenes/Entityes/Main Hero/healthBar/underHealth.png" id="8_imbg2"]
-[ext_resource type="Texture2D" uid="uid://disw1y653mu1p" path="res://Scenes/Entityes/Main Hero/healthBar/health.png" id="10_4e4y2"]
-[ext_resource type="Script" uid="uid://csnvwtea5ti11" path="res://Scenes/Main/HealthBar.cs" id="10_imbg2"]
-[ext_resource type="Texture2D" uid="uid://1v58x4rfu4c" path="res://Scenes/Entityes/Main Hero/healthBar/healthBar.png" id="11_4e4y2"]
-[ext_resource type="Script" uid="uid://c7pbk0x5c3phq" path="res://Scenes/Main/StatMenu.cs" id="11_hfg1r"]
-[ext_resource type="Script" uid="uid://f4ytotmihs7g" path="res://Scenes/Main/ShieldBar.cs" id="12_6t3k2"]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_hryqi"]
-load_path = "res://.godot/imported/healthBar.png-01e44fb64b2a5691313f5e79088a3bce.ctex"
 
 [node name="Main" type="Node2D" unique_id=2107342026]
 script = ExtResource("1_5yls4")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1752699902]
-position = Vector2(39.999996, -95.99999)
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1752699902 groups=["player"]]
+position = Vector2(56, -72)
 scale = Vector2(5, 5)
 texture = ExtResource("1_qw60k")
 
 [node name="FirstMap" parent="." unique_id=248762463 instance=ExtResource("1_1r6ip")]
 position = Vector2(144, 40)
-
-[node name="MainCharacter" parent="FirstMap" unique_id=1170352028 instance=ExtResource("2_lixft")]
-position = Vector2(-216, -208)
-
-[node name="HealPoisonBig" parent="FirstMap" unique_id=1241941863 instance=ExtResource("6_2a143")]
-position = Vector2(-232, 0)
-
-[node name="HealPoisonSmall" parent="FirstMap" unique_id=205890444 instance=ExtResource("7_xlvfx")]
-
-[node name="PoorHuman" parent="." unique_id=1419053090 instance=ExtResource("5_p6jpk")]
-position = Vector2(0, -16)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1287658174]
-
-[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1724549134]
-offset_left = -1.0
-offset_right = 69.0
-offset_bottom = 19.0
-nine_patch_stretch = true
-texture_under = ExtResource("8_imbg2")
-texture_over = SubResource("CompressedTexture2D_hryqi")
-texture_progress = ExtResource("10_4e4y2")
-tint_progress = Color(0.8662156, 2.117753e-06, 1.347661e-06, 1)
-script = ExtResource("10_imbg2")
-
-[node name="ShieldBar" type="TextureProgressBar" parent="CanvasLayer" unique_id=1961591952]
-offset_top = 19.0
-offset_right = 70.0
-offset_bottom = 38.0
-nine_patch_stretch = true
-texture_under = ExtResource("8_imbg2")
-texture_over = ExtResource("11_4e4y2")
-texture_progress = ExtResource("10_4e4y2")
-tint_over = Color(0.47561443, 0.60458976, 1, 1)
-tint_progress = Color(0.58990335, 0.5899027, 0.5899029, 1)
-script = ExtResource("12_6t3k2")
-
-[node name="StatMenu" type="CanvasLayer" parent="." unique_id=2062480267 node_paths=PackedStringArray("Player")]
-visible = false
-script = ExtResource("11_hfg1r")
-Player = NodePath("../FirstMap/MainCharacter")
-
-[node name="Panel" type="Panel" parent="StatMenu" unique_id=227302021]
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="StatMenu/Panel" unique_id=1525526769]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="health" type="Label" parent="StatMenu/Panel/VBoxContainer" unique_id=1921147074]
-layout_mode = 2
-
-[node name="power" type="Label" parent="StatMenu/Panel/VBoxContainer" unique_id=158933778]
-layout_mode = 2
-
-[node name="attackSpeed" type="Label" parent="StatMenu/Panel/VBoxContainer" unique_id=786431996]
-layout_mode = 2
-
-[node name="agility" type="Label" parent="StatMenu/Panel/VBoxContainer" unique_id=764046861]
-layout_mode = 2
