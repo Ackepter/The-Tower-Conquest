@@ -5,15 +5,15 @@ using Godot;
 public partial class DworfScript : BaseEnemyScript
 {
 	public bool IsDied {get; set;} = false;
-    public override float Speed => 45f;
+	public override float Speed => 45f;
 
 	public bool _isHurting  = false;
-    private float _cooldownHurting = 0f;
-    private const float _cooldownHurtingTime = 0.4f;
+	private float _cooldownHurting = 0f;
+	private const float _cooldownHurtingTime = 0.4f;
 
 	private CollisionShape2D _collisionShape;
 	private AnimationPlayer _attackPlayer;
-    private Dictionary<String, Sprite2D>_swords = new Dictionary<String, Sprite2D>();
+	private Dictionary<String, Sprite2D>_swords = new Dictionary<String, Sprite2D>();
 	private String _currentSword;
 	private Tween _swordTween;
 
@@ -25,48 +25,48 @@ public partial class DworfScript : BaseEnemyScript
 	private float _directionMultiplier = 1f;
 
 
-    private Area2D _attackHitbox;
+	private Area2D _attackHitbox;
 
 	private Vector2 _leftAttackHitboxPosition  = new Vector2(-16,0);
-    private Vector2 _rightAttackHitboxPosition = new Vector2(16,0);
-    private Vector2 _upAttackHitboxPosition = new Vector2(0,-16);
-    private Vector2 _downAttackHitboxPosition = new Vector2(0,16);
+	private Vector2 _rightAttackHitboxPosition = new Vector2(16,0);
+	private Vector2 _upAttackHitboxPosition = new Vector2(0,-16);
+	private Vector2 _downAttackHitboxPosition = new Vector2(0,16);
 
 
 	private AudioStreamPlayer _audioPlayer;
-    public override void _Ready()
-    {
+	public override void _Ready()
+	{
 		base._Ready();
 		
 		_audioPlayer = GetNode<AudioStreamPlayer>("audioPlayer");
 
 		_collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
 
-        _attackHitbox = GetNode<Area2D>("AttackHitbox");
+		_attackHitbox = GetNode<Area2D>("AttackHitbox");
 		_attackPlayer = GetNode<AnimationPlayer>("AttackPlayer");
 
-        _swords["left"]= GetNode<Sprite2D>("SwordLeft");
+		_swords["left"]= GetNode<Sprite2D>("SwordLeft");
 		_swords["right"]= GetNode<Sprite2D>("SwordRight");
 		_swords["up"]= GetNode<Sprite2D>("SwordUp");
 		_swords["down"]= GetNode<Sprite2D>("SwordDown");
 
 		_attackHitbox.BodyEntered += OnBodyEntered;
-    }
-    protected override void SetupEnemy()
-    {
-         
-    }
+	}
+	protected override void SetupEnemy()
+	{
+		 
+	}
 
 	private bool _isChasing = false;
-    public override void _PhysicsProcess(double delta)
-    {
+	public override void _PhysicsProcess(double delta)
+	{
 		if (!IsDied)
 		{
 			if (_cooldownHurting > 0)
 			_cooldownHurting -= (float)delta;
-        else if(_cooldownHurting <= 0) _isHurting = false;
+		else if(_cooldownHurting <= 0) _isHurting = false;
 
-        base._PhysicsProcess(delta);
+		base._PhysicsProcess(delta);
 
 		if (!_isHurting)
 		{
@@ -114,23 +114,23 @@ public partial class DworfScript : BaseEnemyScript
 		}
 		}
 
-    }
+	}
 
-    protected override void ChaseHero()
-    {
-        if (_agent == null) return;
-        Vector2 nextPathPosition = _agent.GetNextPathPosition();
-        Vector2 relativeDirection = nextPathPosition - GlobalPosition;
+	protected override void ChaseHero()
+	{
+		if (_agent == null) return;
+		Vector2 nextPathPosition = _agent.GetNextPathPosition();
+		Vector2 relativeDirection = nextPathPosition - GlobalPosition;
 
 		if (relativeDirection.Length() > 0) {
-            relativeDirection = relativeDirection.Normalized() * Speed;
-            float x = relativeDirection.X;
-            float y = relativeDirection.Y;
+			relativeDirection = relativeDirection.Normalized() * Speed;
+			float x = relativeDirection.X;
+			float y = relativeDirection.Y;
 
 			if(Math.Abs(x) > Math.Abs(y))
-            {   
-                if(x > 0)
-                {
+			{   
+				if(x > 0)
+				{
 					foreach(var i in _swords.Keys)
 					{
 						if(i.CompareTo("right") == 0) _swords[i].Show();
@@ -138,11 +138,11 @@ public partial class DworfScript : BaseEnemyScript
 					}
 
 					_currentSword = "right";
-                    _sprite.Play("walkToRight");
-                    _attackHitbox.Position = _rightAttackHitboxPosition;
-                }
-                else
-                {
+					_sprite.Play("walkToRight");
+					_attackHitbox.Position = _rightAttackHitboxPosition;
+				}
+				else
+				{
 					foreach(var i in _swords.Keys)
 					{
 						if(i.CompareTo("left") == 0) _swords[i].Show();
@@ -150,14 +150,14 @@ public partial class DworfScript : BaseEnemyScript
 					}
 
 					_currentSword = "left";
-                    _sprite.Play("walkToLeft");
-                    _attackHitbox.Position = _leftAttackHitboxPosition;
-                }
-            }
-            else
-            {
-                if(y < 0)
-                {
+					_sprite.Play("walkToLeft");
+					_attackHitbox.Position = _leftAttackHitboxPosition;
+				}
+			}
+			else
+			{
+				if(y < 0)
+				{
 					foreach(var i in _swords.Keys)
 					{
 						if(i.CompareTo("up") == 0) _swords[i].Show();
@@ -165,11 +165,11 @@ public partial class DworfScript : BaseEnemyScript
 					}
 					
 					_currentSword = "up";
-                    _sprite.Play("walkFromMe");
-                    _attackHitbox.Position = _upAttackHitboxPosition;
-                }
-                else
-                {
+					_sprite.Play("walkFromMe");
+					_attackHitbox.Position = _upAttackHitboxPosition;
+				}
+				else
+				{
 					foreach(var i in _swords.Keys)
 					{
 						if(i.CompareTo("down") == 0) _swords[i].Show();
@@ -177,18 +177,18 @@ public partial class DworfScript : BaseEnemyScript
 					}
 
 					_currentSword = "down";
-                    _sprite.Play("walkToMe");
-                    _attackHitbox.Position = _downAttackHitboxPosition;
-                }
-            }
+					_sprite.Play("walkToMe");
+					_attackHitbox.Position = _downAttackHitboxPosition;
+				}
+			}
 		}
 
 		Velocity = relativeDirection.Normalized() * Speed;
-        MoveAndSlide();
+		MoveAndSlide();
 
-    }
+	}
 
-    public async void PerformAttack() 
+	public async void PerformAttack() 
 	{
 		_isAttacking = true;
 		_sprite.Play("idle");
@@ -211,7 +211,7 @@ public partial class DworfScript : BaseEnemyScript
 			MainCharacter hero = body as MainCharacter;
 			
 			if (hero != null) {
-                hero.GetDamage(5);
+				hero.GetDamage(8);
 				hero._animatedSprite.Play("hurt");
 			}
 			else
@@ -221,16 +221,16 @@ public partial class DworfScript : BaseEnemyScript
 		}
 	}
 
-    public override void TakeDamage(int value)
-    {
+	public override void TakeDamage(int value)
+	{
 		_isHurting = true;
-        _cooldownHurting = _cooldownHurtingTime;
-        base.TakeDamage(value);
-    }
+		_cooldownHurting = _cooldownHurtingTime;
+		base.TakeDamage(value);
+	}
 
 	public override void Die()
-    {
-        IsDied = true;
+	{
+		IsDied = true;
 		_sprite.Play("die");
 		foreach(Sprite2D i in _swords.Values)
 		{
@@ -244,6 +244,6 @@ public partial class DworfScript : BaseEnemyScript
 				_collisionShape.Disabled = true;
 			}
 		};
-    }
+	}
 
 }

@@ -6,7 +6,7 @@ public partial class BaseProgressBarScript : Godot.ProgressBar
 	protected StyleBoxFlat sbFill{get;set;}
 	protected StyleBoxFlat sbBackground{get;set;}
  
-    public override void _Ready()
+	public override void _Ready()
 	{ 
 		HealthBarTheme();
 		ShowPercentage = false;
@@ -16,7 +16,7 @@ public partial class BaseProgressBarScript : Godot.ProgressBar
 		SizeFlagsVertical = 0;
 	}
 
-    protected void HealthBarTheme() {
+	protected void HealthBarTheme() {
 		sbFill = new StyleBoxFlat();
 		sbBackground = new StyleBoxFlat();
 		
